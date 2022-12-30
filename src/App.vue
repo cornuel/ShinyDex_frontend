@@ -7,7 +7,7 @@
       <RouterLink to="/log-in">Log In</RouterLink>
     </div>
       <div v-if="this.userStore.user">
-        <RouterLink to="/dash-board" :user="user">Dashboard</RouterLink>
+        <RouterLink to="/dash-board" :user="user">DashBoard</RouterLink>
     </div>
     <RouterView />
   </div>
