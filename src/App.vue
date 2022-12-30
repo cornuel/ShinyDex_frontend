@@ -1,36 +1,67 @@
 <template>
-  <div id="app" class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-50 text-gray-800"> 
     <!-- <NavBar :filterTypes="filterTypes"/>
-    <GetPkmns :pkmns="pkmns"/> -->
+      <GetPkmns :pkmns="pkmns"/> -->
+  <div id="app" class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-indigo-300 text-gray-800"> 
     <div id="nav">
-        <RouterLink to="/sign-up">Sign Up</RouterLink>
-        <RouterLink to="/log-in">Log In</RouterLink>
-      </div>
+      <RouterLink to="/sign-up">Sign Up</RouterLink>
+      <RouterLink to="/log-in">Log In</RouterLink>
+    </div>
+      <div v-if="this.userStore.user">
+        <RouterLink to="/dash-board" :user="user">Dashboard</RouterLink>
+    </div>
     <RouterView />
   </div>
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 
 // import GetPkmns from './components/TasksPkmn.vue'
 // import GetPkmnsSkeleton from './components/TasksPkmnSkeleton.vue'
 // import NavBar from './components/NavBar.vue'
+// import Home from './components/TasksPkmn.vue'
 
+import { useUserStore } from "@/store/user";
 
 export default {
   name: 'App',
+
+  setup() {
+    const userStore = useUserStore();
+    return { userStore };
+  },
+
   components: { 
     // NavBar,
     // GetPkmnsSkeleton,
-    // GetPkmns,
+    // Home,
   },    
+  
   data() {
     return {
+      menuOpen: false,
+      mySite: null,
+      user: {
+        isAuthenticated: false,
+        token: this.userStore.getToken || "",
+        info: this.userStore.getUser || {},
+      },
+      dataLoaded: false,
       pkmns: [],
       allPkmns : [],
+    };
+  },
+
+  async created () {
+    if (this.user.token) {
+      // Peutetre pas utile car isAuthenticated n'est que dans App.vue
+      this.user.isAuthenticated = true;
+      axios.defaults.headers.common['Authorization'] = "Token " + this.user.token
+    } else {
+      axios.defaults.headers.common['Authorization'] = ''
     }
   },
+
   mounted() {
     // const sendGetRequest = async () => {
     //   try {
@@ -51,7 +82,7 @@ export default {
       this.pkmns = this.pkmns.filter((pkmn) => {
         return (pkmn.type_1 === type || pkmn.type_2 === type)
       })
-    }
+    },
   }
 }
 </script>
@@ -63,7 +94,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: #d0d0d0;
 }
 
 #nav {
@@ -78,6 +108,4 @@ export default {
     }
   }
 }
-
-
 </style>

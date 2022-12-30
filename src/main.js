@@ -2,9 +2,10 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
-import SignUp from "./components/SignUp.vue"
-import LogIn from "./components/LogIn.vue"
-import GetPkmns from "./components/TasksPkmn.vue"
+import SignUp from "./components/user/SignUp.vue"
+import LogIn from "./components/user/LogIn.vue"
+import DashBoard from "./components/DashBoard.vue"
+// import GetPkmns from "./components/TasksPkmn.vue"
 import 'flowbite';
 import './index.css'
 import './pkmn-list.scss'
@@ -16,6 +17,7 @@ import './pkmn-list.scss'
 const routes = [
     { path: '/sign-up/', component: SignUp },
     { path: '/log-in/', component: LogIn },
+    { path: '/dash-board/', component: DashBoard },
 ]
 
 // 2. Create the router instance and pass the `routes` option
@@ -33,7 +35,7 @@ const app = createApp(App)
 app.component(
     'SignUp', SignUp,
     'LogIn', LogIn,
-    'GetPkmns', GetPkmns
+    'DashBoard', DashBoard
 );
 
 app.use(router).use(pinia).mount("#app")
