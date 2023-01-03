@@ -4,7 +4,7 @@
         <div class="flex items-center pl-6 h-20 border-b border-gray-800">
             <img src="https://media.licdn.com/dms/image/D5603AQFJBBUpMW1Kkw/profile-displayphoto-shrink_800_800/0/1665597030203?e=1676505600&v=beta&t=8s4wHql88Nsy1qyqljGETLTwfti1r4xR7E-hkt2p5EQ" alt="" class="rounded-full h-10 w-10 flex items-center justify-center mr-3 border-2 border-blue-500">
             <div class="ml-1">
-                <p class="ml-1 text-md font-medium tracking-wide truncate text-gray-100 font-sans">{{ username }}</p>
+                <p class="ml-1 text-md font-medium tracking-wide truncate text-gray-100 font-sans">{{ data.userStore.getUser }}</p>
                 <div class="badge">
                        <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-blue-800 bg-blue-100 rounded-full">Admin</span>
                 </div>
@@ -94,51 +94,33 @@
 </template>
 
 <script>
-    import axios from 'axios'
-    import { useUserStore } from "@/store/user";
 
-    const filter_types = [
-        'plante',
-        'feu',
-        'eau',
-        'combat',
-        'spectre',
-        'normal',
-        'insecte',
-        'acier',
-        'vol',
-        'dragon',
-        'electrik',
-        'fee',
-        'glace',
-        'poison',
-        'psy',
-        'roche',
-        'sol',
-        'tenebres',
-    ]
+    // const filter_types = [
+    //     'plante',
+    //     'feu',
+    //     'eau',
+    //     'combat',
+    //     'spectre',
+    //     'normal',
+    //     'insecte',
+    //     'acier',
+    //     'vol',
+    //     'dragon',
+    //     'electrik',
+    //     'fee',
+    //     'glace',
+    //     'poison',
+    //     'psy',
+    //     'roche',
+    //     'sol',
+    //     'tenebres',
+    // ]
 
     export default{
-        setup() {
-            const userStore = useUserStore();
-            const instance = axios.create({
-                baseURL: "http://127.0.0.1:8000/api/v1/",
-            });
-            const urlAllPkmns = "/getData";
-            const urlUserPkmns = "/getUserData";
-            return { userStore, instance, urlAllPkmns, urlUserPkmns};
-        },
         props: [
-            'filterTypes',
+            'data',
+            // 'filterTypes',
         ],
-        data () {
-            return {
-                username : this.userStore.getUser,
-                allPkmns :[],
-                userPkmns :[],
-                filter_types,
-            }
-        },
         methods: {
             capitalized(name) {
             const capitalizedFirst = name[0].toUpperCase();
@@ -154,19 +136,19 @@
             },
             async fetchAllPkmns() {
                 // Fetch all Pkmns
-                const allPkmns = await this.instance.get(this.urlAllPkmns).then((x) => this.allPkmns = x.data);
-                const userPkmns = await this.instance.post(this.urlUserPkmns).then((x) => this.userPkmns = x.data);
+                const allPkmns = await this.data.instance.get(this.data.urlGetAllPkmns).then((x) => this.allPkmns = x.data);
+                const userPkmns = await this.data.instance.post(this.data.urlGetUserPkmns).then((x) => this.userPkmns = x.data);
                 let pkmns = { userPkmns: this.userPkmns, allPkmns: this.allPkmns}
                 this.$emit('pkmns', pkmns);
                 return[allPkmns, userPkmns]
             },
             async fetchUserPkmns() {
                 // Fetch user Pkmns
-                const userPkmns = await this.instance.post(this.urlUserPkmns).then((x) => this.userPkmns = x.data);
+                const userPkmns = await this.data.instance.post(this.data.urlGetUserPkmns).then((x) => this.userPkmns = x.data);
                 let pkmns = { userPkmns: this.userPkmns, allPkmns: this.userPkmns}
                 this.$emit('pkmns', pkmns);
                 return[userPkmns, userPkmns]
-            },
+            }
         }
 
     }

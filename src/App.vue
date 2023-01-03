@@ -3,10 +3,10 @@
       <GetPkmns :pkmns="pkmns"/> -->
   <div id="app" class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-indigo-300 text-gray-800"> 
     <div id="nav">
-      <RouterLink to="/sign-up">Sign Up</RouterLink>
-      <RouterLink to="/log-in">Log In</RouterLink>
+      <RouterLink to="/sign-up" v-if="!this.userStore.user">Sign Up</RouterLink>
+      <RouterLink to="/log-in" v-if="!this.userStore.user">Log In</RouterLink>
     </div>
-      <div v-if="this.userStore.user">
+    <div v-if="this.userStore.user">
         <RouterLink to="/dash-board" :user="user">DashBoard</RouterLink>
     </div>
     <RouterView />
