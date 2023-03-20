@@ -2,20 +2,67 @@
     <div class="log-in">
         <h1>Log in</h1>
 
-        <form @submit.prevent="submitForm">
-            <input type="username" name="username" v-model="username">
-            <input type="password" name="password" v-model="password">
-            <button type="submit">Log In</button>
-        </form>
+        <div class="flex justify-center items-center mt-52">
+          <div class="w-full max-w-xs text-left">
+            <Form class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4" @submit="submitForm">
+              <div class="identity-input mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">
+                  Username
+                </label>
+                <Field 
+                  class="shadow appearance-none rounded-md w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
+                  type="username" 
+                  name="username" 
+                  v-model="username"
+                  :rules="validateUsername"
+                />
+                <ErrorMessage class="text-xs text-red-700" name="username" />
+              </div>
+                <label class="block text-gray-700 text-sm font-bold mb-2">
+                  Password
+                </label>
+                <Field 
+                  class="shadow appearance-none rounded-md w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
+                  type="password" 
+                  name="password" 
+                  v-model="password"
+                  :rules="validatePassword"
+                />
+                <ErrorMessage class="text-xs text-red-700" name="password" />
+                <div class="flex items-center justify-between">
+                  <button
+                    class="bg-blue-600 hover:bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit"
+                  >
+                    Log In
+                  </button>
+                  <a
+                    class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+                    href="#"
+                  >
+                    Forgot Password?
+                  </a>
+                </div>
+            </Form>
+          </div>
+        </div>
+
     </div>
 </template>
 
 <script>
 import axios from 'axios';
 import { useUserStore } from '@/store/user'
+import { Form, Field, ErrorMessage } from 'vee-validate';
 
 export default {
     name: 'LogIn',
+
+    components: {
+      Form,
+      Field,
+      ErrorMessage,
+    },
 
     setup() {
         const userStore = useUserStore();
@@ -36,7 +83,7 @@ export default {
             }
 
             axios
-                .post('http://127.0.0.1:8000/api/v1/token/login', formData)
+                .post('http://192.168.1.20:8000/api/v1/token/login', formData)
                 .then(response => {
                     const token = response.data.auth_token
                     this.userStore.setToken(token)
@@ -48,6 +95,18 @@ export default {
                 .catch(error => {
                     console.log(error)
                 })
+        },
+        validateUsername(value) {
+          if (!value) {
+            return 'Username is required';
+          }
+          return true;
+        },
+        validatePassword(value) {
+          if (!value) {
+            return 'Password is required';
+          }
+          return true;
         }
     }
 }

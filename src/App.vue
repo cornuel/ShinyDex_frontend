@@ -1,13 +1,13 @@
 <template>
     <!-- <NavBar :filterTypes="filterTypes"/>
       <GetPkmns :pkmns="pkmns"/> -->
-  <div id="app" class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-indigo-300 text-gray-800"> 
-    <div id="nav">
-      <RouterLink to="/sign-up" v-if="!this.userStore.user">Sign Up</RouterLink>
-      <RouterLink to="/log-in" v-if="!this.userStore.user">Log In</RouterLink>
+  <div id="app" class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 text-gray-800"> 
+    <div id="nav" v-if="!this.userStore.user">
+      <RouterLink to="/sign-up" >Sign Up</RouterLink>
+      <RouterLink to="/log-in" >Log In</RouterLink>
     </div>
     <div v-if="this.userStore.user">
-        <RouterLink to="/dash-board" :user="user">DashBoard</RouterLink>
+        <RouterLink to="/dash-board" :user="user"></RouterLink>
     </div>
     <RouterView />
   </div>
@@ -15,11 +15,6 @@
 
 <script>
 import axios from 'axios'
-
-// import GetPkmns from './components/TasksPkmn.vue'
-// import GetPkmnsSkeleton from './components/TasksPkmnSkeleton.vue'
-// import NavBar from './components/NavBar.vue'
-// import Home from './components/TasksPkmn.vue'
 
 import { useUserStore } from "@/store/user";
 
@@ -31,11 +26,9 @@ export default {
     return { userStore };
   },
 
-  components: { 
-    // NavBar,
-    // GetPkmnsSkeleton,
-    // Home,
-  },    
+  components: {
+
+  },
   
   data() {
     return {
@@ -63,49 +56,7 @@ export default {
   },
 
   mounted() {
-    // const sendGetRequest = async () => {
-    //   try {
-    //       const response = await axios.get('http://localhost:8000/api/v1/getData');
-    //       this.pkmns = response.data
-    //       this.allPkmns = response.data
-    //   } catch (err) {
-    //       // Handle Error Here
-    //       console.error(err);
-    //   }
-    // }
-
-    // sendGetRequest();
   },
-  methods: {
-    filterTypes (type) {
-      this.pkmns = this.allPkmns
-      this.pkmns = this.pkmns.filter((pkmn) => {
-        return (pkmn.type_1 === type || pkmn.type_2 === type)
-      })
-    },
-  }
+
 }
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>

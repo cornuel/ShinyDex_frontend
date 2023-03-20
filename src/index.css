@@ -2,14 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-.pkmn-card {
-    img {    
-        transition: transform .3s ease-in-out; 
-    }
-
-    &:hover {
-        img {
-        transform: scale(1.05)
-        }
-    }
+:root {
+  --combat-color: #ce4069;
+  --psy-color:#f97176;
+  --poison-color:#ab6ac8;
+  --dragon-color:#0a6dc4;
+  --spectre-color:#5269ac;
+  --tenebres-color:#5a5366;
+  --sol-color:#d97746;
+  --feu-color:#ff9c54;
+  --fee-color:#ec8fe6;
+  --eau-color:#4d90d5;
+  --vol-color:#8fa8dd;
+  --normal-color:#9099a1;
+  --roche-color:#c7b78b;
+  --electrik-color:#f3d23b;
+  --insecte-color:#90c12c;
+  --plante-color: #63bb5b;
+  --glace-color:#74cec0;
+  --acier-color:#5a8ea1;
 }

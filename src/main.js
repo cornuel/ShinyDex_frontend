@@ -1,14 +1,20 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { MotionPlugin } from '@vueuse/motion'
+///FontAwesome Icons
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import App from './App.vue'
 import SignUp from "./components/user/SignUp.vue"
 import LogIn from "./components/user/LogIn.vue"
 import DashBoard from "./components/DashBoard.vue"
-// import GetPkmns from "./components/TasksPkmn.vue"
 import 'flowbite';
 import './index.css'
-import './pkmn-list.scss'
+
+/* add icons to the library */
+library.add(faUserSecret)
 
 // 1. Define some routes
 // Each route should map to a component.
@@ -30,7 +36,7 @@ const router = createRouter({
   })
   
 const pinia = createPinia()
-const app = createApp(App)
+const app = createApp(App).component('fa', FontAwesomeIcon)
 
 app.component(
     'SignUp', SignUp,
@@ -38,6 +44,6 @@ app.component(
     'DashBoard', DashBoard
 );
 
-app.use(router).use(pinia).mount("#app")
+app.use(router).use(pinia).use(MotionPlugin).mount("#app")
 
 

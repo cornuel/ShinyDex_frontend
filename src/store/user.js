@@ -5,10 +5,16 @@ export const useUserStore = defineStore({
   state: () => ({
     token: localStorage.getItem("token") || null,
     user: localStorage.getItem("user") || null,
+    sortFilter: 'ascending',
+    sortOrder: '',
+    typeFilter: ''
   }),
   getters: {
     getToken: (state) => state.token,
     getUser: (state) => JSON.parse(state.user),
+    getSortFilter: (state) => state.sortFilter,
+    getSortOrder: (state) => state.sortFilter,
+    getTypeFilter: (state) => state.typeFilter
   },
   actions: {
     setToken(token) {
@@ -35,6 +41,17 @@ export const useUserStore = defineStore({
       // Delete user from local storage
       localStorage.removeItem("user");
     },
+
+    //FILTERS
+    setSortOrder(sortOrder){
+      this.sortOrder = sortOrder;
+    },
+    setSortFilter(sortFilter) {
+      this.sortFilter = sortFilter;
+    },
+    setTypeFilter(typeFilter) {
+      this.typeFilter = typeFilter;
+    }
 
   },
 });
