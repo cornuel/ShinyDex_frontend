@@ -11,11 +11,16 @@
       <SortList @filterSort="filterSort" />
       <OrderList @orderSort="orderSort" />
     </div>
-    <div class="z-0 p-10 left-44 grid bg-gray-100 grid-cols-1 mt-5
-                          sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-5">
-      <PkmnCard v-for="(pkmn, i) in data" :key="i" :pkmn="pkmn" :backend="backend" :apiUrl="apiUrl"
-        :postShinyData_endpoint="postShinyData_endpoint" />
-    </div>
+    <!-- <Suspense> -->
+      <div class="z-0 p-10 left-44 grid bg-gray-100 grid-cols-1 mt-5
+            sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-5">
+        <PkmnCard v-for="(pkmn, i) in data" :key="i" :pkmn="pkmn" :backend="backend" :apiUrl="apiUrl"
+          :postShinyData_endpoint="postShinyData_endpoint" />
+        <!-- <template #fallback> -->
+          <!-- <PkmnCardSkeleton v-for="(pkmn, i) in data" :key="i" /> -->
+        <!-- </template> -->
+      </div>
+    <!-- </Suspense> -->
   </div>
 </template>
 
@@ -25,23 +30,24 @@ import axios from 'axios'
 import { useUserStore } from "@/store/user";
 // import NavBar from '@/components/NavBar.vue'
 import PkmnCard from './PkmnCard.vue';
+// import PkmnCardSkeleton from './PkmnCardSkeleton.vue';
 import OwnFilter from './filters/OwnFilter.vue';
 import TypeFilter_1 from './filters/TypeFilter_1.vue';
 import TypeFilter_2 from './filters/TypeFilter_2.vue';
 import SortList from './filters/SortList.vue';
 import OrderList from './filters/OrderList.vue';
 
-
 export default {
 
   components: {
     // NavBar,
     PkmnCard,
+    // PkmnCardSkeleton,
     OwnFilter,
     TypeFilter_1,
     TypeFilter_2,
     SortList,
-    OrderList
+    OrderList,
   },
 
   mounted() {
@@ -226,6 +232,9 @@ export default {
 
       if (this.rawSort == '# Regional Number') {
         this.apiSort = 'regional_number';
+      }
+      else if (this.rawSort == '# National Number') {
+        this.apiSort = 'national_number'
       }
       else if (this.rawSort == 'Hp') {
         this.apiSort = 'stat_hp'

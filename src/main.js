@@ -10,6 +10,7 @@ import App from './App.vue'
 import SignUp from "./components/user/SignUp.vue"
 import LogIn from "./components/user/LogIn.vue"
 import DashBoard from "./components/DashBoard.vue"
+import VueLazyLoad from 'vue3-lazyload'
 import 'flowbite';
 import './index.css'
 
@@ -44,6 +45,6 @@ app.component(
     'DashBoard', DashBoard
 );
 
-app.use(router).use(pinia).use(MotionPlugin).mount("#app")
+app.use(router).use(pinia).use(MotionPlugin).use(VueLazyLoad).mount("#app")
 
 

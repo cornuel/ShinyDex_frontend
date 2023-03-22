@@ -1,7 +1,7 @@
 <template>
     <div class="p-0.5 h-full
-            rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl" @click="showPokedexImg = !showPokedexImg"
-        :class="{ 'cursor-pointer': showPokedexImg }">
+    rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl" @click="showPokedexImg = !showPokedexImg"
+    :class="{ 'cursor-pointer': showPokedexImg }">
         <div class="relative
                         bg-gray-50 h-full
                         rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl 
@@ -26,11 +26,10 @@
                             'hover:shadow-slate-800 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'tenebres',
                         }">
             <div class="post">
-                <div v-motion v-if="showPokedexImg">
+                <div v-if="showPokedexImg">
                     <img class="w-full rounded-tl-md rounded-br-md rounded-tr-3xl transition duration-1000 ease-in-out "
-                        :src="backend + pkmn.pokedex_img" alt="logo" />
+                        v-lazy="backend + pkmn.pokedex_img" alt="logo" />
                 </div>
-                <!-- <Skeletor v-else-if="isPostLoading" class="w-full rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl"/> -->
                 <div class=" py-1">
                     <div class="flex justify-between -mb-6">
                         <div class=" font-semibold mb-1 text-gray-700 drop-shadow-sm text-sm shadow-gray-200 mx-5">
@@ -132,8 +131,6 @@ import { useUserStore } from "@/store/user";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ChartJSPluginDatalabels)
 
-// import { Skeletor } from 'vue-skeletor';
-// import 'vue-skeletor/dist/vue-skeletor.css';
 
 export default {
 
@@ -144,7 +141,6 @@ export default {
 
     components: {
         Bar,
-        // Skeletor
     },
 
     props: [
@@ -272,3 +268,14 @@ export default {
     }
 }
 </script>
+
+
+<style scoped>
+.v-lazy-image {
+  filter: blur(10px);
+  transition: filter 0.7s;
+}
+.v-lazy-image-loaded {
+  filter: blur(0);
+}
+</style>
