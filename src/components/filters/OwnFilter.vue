@@ -1,10 +1,10 @@
 <template>
   <div class="w-40">
     <Listbox v-model="selectedType">
-      <div class="relative mt-1">
+      <div class="relative">
         <ListboxButton
         :class="['All' === selectedType.type ? 'bg-white' : 'bg-amber-100 text-amber-900 font-medium']"
-          class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+          class="relative w-full cursor-default rounded-lg  py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
         >
           <span class="block truncate">{{ selectedType.type }}</span>
           <span
@@ -37,7 +37,7 @@
               <li
                 :class="[
                   active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
-                  'relative cursor-default select-none py-2 pl-10 pr-4',
+                  'relative cursor-pointer select-none py-2 pl-10 pr-4',
                 ]"
               >
                 <span

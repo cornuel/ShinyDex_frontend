@@ -1,7 +1,7 @@
 <template>
   <div class="w-40">
     <Listbox v-model="selectedType">
-      <div class="relative mt-1">
+      <div class="relative">
         <ListboxButton
           :class="['Tous les types' === selectedType.type ? 'bg-white' : 'bg-amber-100 text-amber-900 font-medium']"
           class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md 
@@ -40,7 +40,7 @@
               <li
                 :class="[
                   active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
-                  'relative cursor-default select-none py-2 pl-10 pr-4',
+                  'relative cursor-pointer select-none py-2 pl-10 pr-4',
                 ]"
               >
                 <span

@@ -2,10 +2,13 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { MotionPlugin } from '@vueuse/motion'
+
 ///FontAwesome Icons
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar as regularStar} from '@fortawesome/free-regular-svg-icons'
+
 import App from './App.vue'
 import SignUp from "./components/user/SignUp.vue"
 import LogIn from "./components/user/LogIn.vue"
@@ -15,7 +18,7 @@ import 'flowbite';
 import './index.css'
 
 /* add icons to the library */
-library.add(faUserSecret)
+library.add(solidStar, regularStar)
 
 // 1. Define some routes
 // Each route should map to a component.
@@ -37,9 +40,10 @@ const router = createRouter({
   })
   
 const pinia = createPinia()
-const app = createApp(App).component('fa', FontAwesomeIcon)
+const app = createApp(App)
 
 app.component(
+    'font-awesome-icon', FontAwesomeIcon,
     'SignUp', SignUp,
     'LogIn', LogIn,
     'DashBoard', DashBoard

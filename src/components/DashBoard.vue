@@ -3,24 +3,26 @@
     <!-- Leftside navigation bar -->
     <!-- <NavBar /> -->
     <!-- Rightside content -->
-
-    <div class="z-50 w-screen flex fixed top-0 bg-gray-100 justify-center">
+    <div class="z-50 w-fit md:flex mx-auto inset-x-0 fixed backdrop-blur-lg p-5 rounded-lg justify-center mt-10 gap-2 shadow-md border border-gray-300">
       <OwnFilter @ownFilter="ownFilter" />
       <TypeFilter_1 @filterType_1="filterType_1" />
       <TypeFilter_2 :typeList="list_type_2" @filterType_2="filterType_2" />
       <SortList @filterSort="filterSort" />
       <OrderList @orderSort="orderSort" />
     </div>
-    <!-- <Suspense> -->
-      <div class="z-0 p-10 left-44 grid bg-gray-100 grid-cols-1 mt-5
-            sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-5">
+    <div v-if="!isLoading">
+      <div class="z-0 p-10 md:p-28 left-44 grid bg-gray-100 grid-cols-1 mt-10
+              sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-5">
         <PkmnCard v-for="(pkmn, i) in data" :key="i" :pkmn="pkmn" :backend="backend" :apiUrl="apiUrl"
           :postShinyData_endpoint="postShinyData_endpoint" />
-        <!-- <template #fallback> -->
-          <!-- <PkmnCardSkeleton v-for="(pkmn, i) in data" :key="i" /> -->
-        <!-- </template> -->
       </div>
-    <!-- </Suspense> -->
+    </div>
+    <div v-else>
+      <div class="z-0 p-10 md:p-28 left-44 grid bg-gray-100 grid-cols-1 mt-10
+            sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-5">
+        <PkmnCardSkeleton v-for="(pkmn, i) in data" :key="i" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -30,7 +32,7 @@ import axios from 'axios'
 import { useUserStore } from "@/store/user";
 // import NavBar from '@/components/NavBar.vue'
 import PkmnCard from './PkmnCard.vue';
-// import PkmnCardSkeleton from './PkmnCardSkeleton.vue';
+import PkmnCardSkeleton from './PkmnCardSkeleton.vue';
 import OwnFilter from './filters/OwnFilter.vue';
 import TypeFilter_1 from './filters/TypeFilter_1.vue';
 import TypeFilter_2 from './filters/TypeFilter_2.vue';
@@ -42,7 +44,7 @@ export default {
   components: {
     // NavBar,
     PkmnCard,
-    // PkmnCardSkeleton,
+    PkmnCardSkeleton,
     OwnFilter,
     TypeFilter_1,
     TypeFilter_2,
@@ -51,6 +53,7 @@ export default {
   },
 
   mounted() {
+    this.isLoading = true
     // use axios.get() method with the URL as a parameter
     axios.post('http://localhost:3001/api/v1/getData')
       .then(response => {
@@ -58,6 +61,7 @@ export default {
         console.log(response);
         // assign the response data to the component data property
         this.data = response.data;
+        this.isLoading = false
       })
       .catch(error => {
         // handle error
@@ -96,6 +100,7 @@ export default {
     apiOrder: '',
     rawSortOwned: '',
     sortOwned: '',
+    isLoading: true,
   }),
 
   methods: {
@@ -103,6 +108,26 @@ export default {
     async created() {
       console.log(this.userStore.getUser)
     },
+
+    // async getDataWithTimeout(url, timeout) {
+    //   return new Promise((resolve, reject) => {
+    //     // use axios.get() method with the URL as a parameter
+    //     axios.post(url)
+    //       .then(response => {
+    //         // handle success
+    //         console.log(response);
+    //         // assign the response data to the component data property
+    //         this.data = response.data;
+    //       })
+    //       .catch(error => {
+    //         // handle error
+    //         console.error(error);
+    //       })
+    //     setTimeout(() => {
+    //       reject(new Error('Request timed out'));
+    //     }, timeout);
+    //   })
+    // },
 
     async fetchData(owned, type_1, type_2, sort, orderBy) {
 
@@ -131,13 +156,16 @@ export default {
         l_endPoint = this.getUserData
       }
 
-      // use axios.get() method with the URL as a parameter
+      // this.getDataWithTimeout(this.apiUrl + l_endPoint + l_filter, 5000)
+
+      this.isLoading = true
       axios.post(this.apiUrl + l_endPoint + l_filter)
         .then(response => {
           // handle success
           console.log(response);
           // assign the response data to the component data property
           this.data = response.data;
+          this.isLoading = false
         })
         .catch(error => {
           // handle error
