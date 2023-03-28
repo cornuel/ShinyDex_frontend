@@ -3,7 +3,7 @@
     <Listbox v-model="selectedType">
       <div class="relative">
         <ListboxButton
-          :class="['Tous les types' === selectedType.type ? 'bg-white' : 'bg-amber-100 text-amber-900 font-medium']"
+          :class="['Tous les types' === selectedType.type ? 'bg-white' : 'bg-amber-100 text-amber-900 font-medium border-2 border-amber-500']"
           class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md 
           focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white 
           focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 
@@ -21,16 +21,11 @@
           </span>
         </ListboxButton>
 
-        <transition
-          leave-active-class="transition duration-100 ease-in"
-          leave-from-class="opacity-100"
-          leave-to-class="opacity-0"
-        >
           <ListboxOptions
             class="overflow-y-hidden absolute mt-1 w-full  overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-          >
+            >
             <ListboxOption
-              v-on:click="handleClick"
+              @click="handleClick"
               v-slot="{ active, selected }"
               v-for="person in types"
               :key="person.type"
@@ -59,7 +54,6 @@
               </li>
             </ListboxOption>
           </ListboxOptions>
-        </transition>
       </div>
     </Listbox>
   </div>
@@ -100,7 +94,7 @@ const selectedType = ref(types[0])
 const emit = defineEmits(['filterType_1'])
 
 
-const handleClick = () => {
+const handleClick = async () => {
   // this.userStore.setTypeFilter(selectedType.value.type)
   emit('filterType_1', selectedType.value.type)
   console.log(selectedType.value.type)

@@ -6,10 +6,10 @@
                             rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl 
                             shadow-md border-1 border-gray-200">
             <div class="post">
-                <div class="rounded-tr-3xl">
+                <div class="rounded-tr-3xl w-full">
                     <!-- Image -->
                     <AnimatedPlaceHolder 
-                        height="125px" 
+                        height="110px" 
                         width="100%" 
                         borderRadius="0.375rem 1.5rem 0 0" 
                     />

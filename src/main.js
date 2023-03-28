@@ -6,7 +6,7 @@ import { MotionPlugin } from '@vueuse/motion'
 ///FontAwesome Icons
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faStar as solidStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar as solidStar, faChartColumn as solidChart} from '@fortawesome/free-solid-svg-icons'
 import { faStar as regularStar} from '@fortawesome/free-regular-svg-icons'
 
 import App from './App.vue'
@@ -18,7 +18,7 @@ import 'flowbite';
 import './index.css'
 
 /* add icons to the library */
-library.add(solidStar, regularStar)
+library.add(solidStar, solidChart, regularStar)
 
 // 1. Define some routes
 // Each route should map to a component.

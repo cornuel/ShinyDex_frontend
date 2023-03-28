@@ -3,7 +3,8 @@
     <!-- Leftside navigation bar -->
     <!-- <NavBar /> -->
     <!-- Rightside content -->
-    <div class="z-50 w-fit md:flex mx-auto inset-x-0 fixed backdrop-blur-lg p-5 rounded-lg justify-center mt-10 gap-2 shadow-md border border-gray-300">
+    <div class="z-50 w-fit md:flex mx-auto inset-x-0 fixed p-5 rounded-lg justify-center mt-10 gap-2 shadow-md border 
+              backdrop-blur-lg border-gray-300 font-nunito">
       <OwnFilter @ownFilter="ownFilter" />
       <TypeFilter_1 @filterType_1="filterType_1" />
       <TypeFilter_2 :typeList="list_type_2" @filterType_2="filterType_2" />
@@ -12,15 +13,15 @@
     </div>
     <div v-if="!isLoading">
       <div class="z-0 p-10 md:p-28 left-44 grid bg-gray-100 grid-cols-1 mt-10
-              sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-5">
+                    sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-5">
         <PkmnCard v-for="(pkmn, i) in data" :key="i" :pkmn="pkmn" :backend="backend" :apiUrl="apiUrl"
-          :postShinyData_endpoint="postShinyData_endpoint" />
+          :postShinyData_endpoint="postShinyData_endpoint" :userPkmnList="userPkmnList"/>
       </div>
     </div>
     <div v-else>
       <div class="z-0 p-10 md:p-28 left-44 grid bg-gray-100 grid-cols-1 mt-10
-            sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-5">
-        <PkmnCardSkeleton v-for="(pkmn, i) in data" :key="i" />
+                  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-5">
+        <PkmnCardSkeleton v-for="i in 36" :key="i" />
       </div>
     </div>
   </div>
@@ -58,7 +59,7 @@ export default {
     axios.post('http://localhost:3001/api/v1/getData')
       .then(response => {
         // handle success
-        console.log(response);
+        // console.log(response);
         // assign the response data to the component data property
         this.data = response.data;
         this.isLoading = false
@@ -86,9 +87,12 @@ export default {
     apiUrl: 'http://localhost:3001/api/v1/',
     getData: 'getData',
     getUserData: 'getUserData',
+    getUnownedPokemon: 'getUnownedPokemon',
     postShinyData_endpoint: 'postShinyData',
+    getUserPkmnList: 'getUserPkmnList',
     getComplementaryType: 'getComplementaryType',
     data: [],
+    userPkmnList: [],
     list_type_1: [],
     list_type_2: [],
     rawType_1: '',
@@ -109,25 +113,38 @@ export default {
       console.log(this.userStore.getUser)
     },
 
-    // async getDataWithTimeout(url, timeout) {
-    //   return new Promise((resolve, reject) => {
-    //     // use axios.get() method with the URL as a parameter
-    //     axios.post(url)
-    //       .then(response => {
-    //         // handle success
-    //         console.log(response);
-    //         // assign the response data to the component data property
-    //         this.data = response.data;
-    //       })
-    //       .catch(error => {
-    //         // handle error
-    //         console.error(error);
-    //       })
-    //     setTimeout(() => {
-    //       reject(new Error('Request timed out'));
-    //     }, timeout);
-    //   })
-    // },
+    async getDataWithTimeout(url) {
+      // use axios.post() method with the URL as a parameter
+      try {
+        const response = await axios.post(url);
+        // handle success
+        // console.log(response.data);
+        // assign the response data to the component data property
+        return response.data
+      } catch (error) {
+        // Handle errors
+        console.error(error);
+        throw error;
+      }
+    },
+
+    async fetchMultipleUrls(url1, url2) {
+      this.isLoading = false
+      this.isLoading = true
+      try {
+        const [response_1, response_2] = await Promise.all([
+          this.getDataWithTimeout(url1),
+          this.getDataWithTimeout(url2),
+        ]);
+        
+        this.data = response_1;
+        this.userPkmnList = response_2;
+        this.isLoading = false
+
+      } catch (error) {
+        console.error(error);
+      }
+    },
 
     async fetchData(owned, type_1, type_2, sort, orderBy) {
 
@@ -153,27 +170,14 @@ export default {
       }
       else if (owned == 'not_owned') {
         //TODO
-        l_endPoint = this.getUserData
+        l_endPoint = this.getUnownedPokemon
       }
 
-      // this.getDataWithTimeout(this.apiUrl + l_endPoint + l_filter, 5000)
-
       this.isLoading = true
-      axios.post(this.apiUrl + l_endPoint + l_filter)
-        .then(response => {
-          // handle success
-          console.log(response);
-          // assign the response data to the component data property
-          this.data = response.data;
-          this.isLoading = false
-        })
-        .catch(error => {
-          // handle error
-          console.error(error);
-        })
+      this.fetchMultipleUrls(this.apiUrl + l_endPoint + l_filter,this.apiUrl + this.getUserPkmnList)
     },
 
-    ownFilter(rawOwned) {
+    async ownFilter(rawOwned) {
       this.rawOwned = rawOwned;
       // console.log(this.rawOwned)
 
@@ -201,9 +205,9 @@ export default {
       }
     },
 
-    filterType_1(rawType) {
+    async filterType_1(rawType) {
       this.rawType_1 = rawType;
-      console.log(this.rawType_1)
+      // console.log(this.rawType_1)
 
       if (this.rawType_1 == 'Tous les types') {
         this.apiType_1 = '';
@@ -226,7 +230,7 @@ export default {
 
     filterType_2(rawType) {
       this.rawType_2 = rawType;
-      console.log(this.rawType_2)
+      // console.log(this.rawType_2)
 
       if (this.rawType_2 == 'Tous les types') {
         this.apiType_2 = '';
@@ -241,7 +245,7 @@ export default {
 
     orderSort(rawType) {
       this.rawType = rawType;
-      console.log(this.rawType)
+      // console.log(this.rawType)
 
       if (this.rawType == 'DESCENDING ↓') {
         this.apiOrder = '-';
@@ -256,7 +260,7 @@ export default {
 
     filterSort(rawSort) {
       this.rawSort = rawSort;
-      console.log(this.rawSort)
+      // console.log(this.rawSort)
 
       if (this.rawSort == '# Regional Number') {
         this.apiSort = 'regional_number';

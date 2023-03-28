@@ -1,41 +1,39 @@
 <template>
-    <div class="p-0.5 rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl"
-        @click="showPokedexImg = !showPokedexImg" :class="{ 'cursor-pointer': showPokedexImg }">
+    <div class="p-0.5 rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl" @click="showPokedexImg = !showPokedexImg"
+        :class="{ 'cursor-pointer': showPokedexImg }">
         <div class="relative 
-                bg-gray-50 items-stretch h-full
-                rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl 
-                shadow-md border-1 border-gray-200"
-            :class="{
-                'hover:shadow-green-400 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'plante',
-                'hover:shadow-red-500 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'feu',
-                'hover:shadow-blue-500 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'eau',
-                'hover:shadow-orange-400 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'combat',
-                'hover:shadow-indigo-900 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'spectre',
-                'hover:shadow-gray-400 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'normal',
-                'hover:shadow-insecte hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'insecte',
-                'hover:shadow-slate-400 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'acier',
-                'hover:shadow-blue-300 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'vol',
-                'hover:shadow-indigo-600 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'dragon',
-                'hover:shadow-yellow-300 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'electrik',
-                'hover:shadow-pink-400 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'fee',
-                'hover:shadow-cyan-300 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'glace',
-                'hover:shadow-purple-400 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'poison',
-                'hover:shadow-rose-400 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'psy',
-                'hover:shadow-yellow-600 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'roche',
-                'hover:shadow-yellow-700 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'sol',
-                'hover:shadow-slate-800 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'tenebres',
-            }">
+                            bg-gray-50 items-stretch h-full
+                            rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl 
+                            shadow-md border-1 border-gray-200" :class="{
+                                'hover:shadow-green-400 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'plante',
+                                'hover:shadow-red-500 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'feu',
+                                'hover:shadow-blue-500 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'eau',
+                                'hover:shadow-orange-400 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'combat',
+                                'hover:shadow-indigo-900 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'spectre',
+                                'hover:shadow-gray-400 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'normal',
+                                'hover:shadow-insecte hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'insecte',
+                                'hover:shadow-slate-400 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'acier',
+                                'hover:shadow-blue-300 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'vol',
+                                'hover:shadow-indigo-600 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'dragon',
+                                'hover:shadow-yellow-300 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'electrik',
+                                'hover:shadow-pink-400 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'fee',
+                                'hover:shadow-cyan-300 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'glace',
+                                'hover:shadow-purple-400 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'poison',
+                                'hover:shadow-rose-400 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'psy',
+                                'hover:shadow-yellow-600 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'roche',
+                                'hover:shadow-yellow-700 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'sol',
+                                'hover:shadow-slate-800 hover:shadow-sm shadow-md transition duration-300 ease-in-out': pkmn.type_1 === 'tenebres',
+                            }">
             <Transition name="fade" mode="out-in">
                 <div v-if="showPokedexImg" class="post">
-                    <button class=" absolute top-4 right-4 p-2.5 rounded-full bg-[#f3f4f6] active:bg-slate-600
-                                    shadow-md hover:shadow-xl
-                                    ease-linear transition-all duration-150" :class="{
-                                    'favorited': isFavorited,
-                                    'shadow-red-300' : isFavorited,
-                                }" @click="toggleFavorite">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill-opacity="1" viewBox="0 0 20 20" 
-                            :fill="isFavorited ? '#f43f5e' : 'white' " 
-                            :stroke="isFavorited ? '#c6ccd3' : 'gray' " 
+                    <button class=" z-30 absolute top-4 right-4 p-2.5 rounded-full bg-[#f3f4f6] active:bg-slate-600
+                                                shadow-sm hover:shadow-md
+                                                ease-linear transition-all duration-150" :class="{
+                                                    'favorited': isFavorited,
+                                                    'shadow-red-600': isFavorited,
+                                                }" @click.stop="toggleFavorite(pkmn.regional_number)">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill-opacity="1" viewBox="0 0 20 20"
+                            :fill="isFavorited ? '#f43f5e' : 'white'" :stroke="isFavorited ? '#f43f5e' : 'gray'"
                             class="w-4 h-4">
                             <path fill-rule="evenodd" class="shadow-inner"
                                 d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
@@ -47,28 +45,27 @@
                         </div> -->
                     </button>
                     <div>
-                        <img class="w-full rounded-tl-md rounded-br-md rounded-tr-3xl" :src="backend + pkmn.pokedex_img"
-                            alt="logo" loading="lazy" />
+                        <img class="w-full rounded-tl-md rounded-br-md rounded-tr-3xl" 
+                            :class="!isFavorited ?'grayscale' : 'grayscale-0'"
+                            :src="backend + pkmn.pokedex_img" alt="logo" loading="lazy" />
                     </div>
-
-
                     <div class=" py-1">
-                        <div class="flex justify-between -mb-6">
-                            <div class=" font-semibold mb-1 text-gray-700 drop-shadow-sm text-sm shadow-gray-200 mx-5">
-                                #{{ pkmn.regional_number }}
+                        <div class="flex justify-between -mb-5">
+                            <div class=" font-rubik tracking-wide italic mb-1 text-gray-700 drop-shadow-sm text-sm shadow-gray-200 mx-5">
+                                {{ pkmn.regional_number }}
                             </div>
-                            <div class=" font-light mb-1 text-gray-700 drop-shadow-sm text-sm shadow-gray-200 mx-5">
+                            <div class=" font-rubik tracking-wide italic mb-1 text-gray-700 drop-shadow-sm text-sm shadow-gray-200 mx-5">
                                 {{ pkmn.national_number }}
                             </div>
                         </div>
-                        <div class=" font-semibold text-center mb-1 text-gray-700 drop-shadow-sm shadow-gray-200">
+                        <div class="font-nunito font-semibold text-center mb-1 text-gray-700 drop-shadow-sm shadow-gray-200">
                             {{ pkmn.name_fr }}
                         </div>
-                        <p v-if="showPokedexImg" class="text-gray-700 text-sm text-center">
+                        <p v-if="showPokedexImg" class="font-rubik tracking-wide italic text-gray-700 text-sm text-center">
                             {{ pkmn.name_en }}
                         </p>
                     </div>
-                    <div v-if="showPokedexImg" class="flex align-items justify-center px-5 text-gray-50">
+                    <div v-if="showPokedexImg" class="flex align-items justify-center px-5 text-gray-50 font-rubik tracking-wide uppercase text-sm">
                         <span :class="{
                             'bg-green-400': pkmn.type_1 === 'plante',
                             'bg-red-500 ': pkmn.type_1 === 'feu',
@@ -89,7 +86,7 @@
                             'bg-yellow-700 ': pkmn.type_1 === 'sol',
                             'bg-slate-800 ': pkmn.type_1 === 'tenebres',
                         }"
-                            class="block mx-1 rounded-full px-3 py-1 align-items justify-center text-xs font-bold mb-2 shadow-md border-2 border-white">
+                            class="block mx-1 rounded-full px-3 py-1 align-items justify-center text-xs mb-2 shadow-md border-2 border-white">
                             {{ capitalized(pkmn.type_1) }}
                         </span>
                         <span v-if="pkmn.type_2 != 'NA'" :class="{
@@ -112,22 +109,22 @@
                             'bg-yellow-700 ': pkmn.type_2 === 'sol',
                             'bg-slate-800 ': pkmn.type_2 === 'tenebres',
                         }"
-                            class="block mx-1 rounded-full px-3 py-1 text-xs font-bold mb-2 shadow-md border-2 border-white text-gray-50">
+                            class="block mx-1 rounded-full px-3 py-1 text-xs mb-2 shadow-md border-2 border-white text-gray-50">
                             {{ capitalized(pkmn.type_2) }}
                         </span>
                     </div>
                 </div>
-                <div v-else class="justify-center items-center content-center h-fit">
+                <div v-else class="justify-center items-center content-center">
                     <div class=" py-1">
                         <div class="flex justify-between -mb-6">
-                            <div class=" font-semibold mb-1 text-gray-700 drop-shadow-sm text-sm shadow-gray-200 mx-5">
-                                #{{ pkmn.regional_number }}
+                            <div class=" font-rubik tracking-wide italic mb-1 text-gray-700 drop-shadow-sm text-sm shadow-gray-200 mx-5">
+                                {{ pkmn.regional_number }}
                             </div>
-                            <div class=" font-light mb-1 text-gray-700 drop-shadow-sm text-sm shadow-gray-200 mx-5">
+                            <div class=" font-rubik tracking-wide italic mb-1 text-gray-700 drop-shadow-sm text-sm shadow-gray-200 mx-5">
                                 {{ pkmn.national_number }}
                             </div>
                         </div>
-                        <div class=" font-semibold text-center mb-1 text-gray-700 drop-shadow-sm shadow-gray-200">
+                        <div class="font-nunito font-semibold text-center mb-1 text-gray-700 drop-shadow-sm shadow-gray-200">
                             {{ pkmn.name_fr }}
                         </div>
                         <p v-if="showPokedexImg" class="text-gray-700 text-sm text-center">
@@ -135,20 +132,20 @@
                         </p>
                     </div>
                     <div class="flex justify-center">
-                        <button @click="showStats = !showStats"
-                            class="bg-slate-500 text-white active:bg-slate-600 font-bold text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        <button @click.stop="showStats = !showStats"
+                            class="text-rubik bg-slate-200 active:bg-slate-300 text-slate-600 text-sm p-2 h-8 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
                             type="button">
-                            <!-- <fa icon="fa-solid fa-heart" /> -->
+                            <font-awesome-icon icon="fa-solid fa-chart-column" />
+                            <span v-if="!showStats">
+                                Show
+                            </span>
+                            <span v-else>
+                                Hide
+                            </span>
                             Stats
                         </button>
-                        <button @click="postShinyPkmn(pkmn.regional_number)"
-                            class="bg-orange-300 text-white active:bg-slate-600 font-bold text-xs px-4 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                            type="button">
-                            <!-- <fa icon="fa-solid fa-heart" /> -->
-                            Shiny Collected
-                        </button>
                     </div>
-                    <div class="max-h-40">
+                    <div class="p-2 -mt-5">
                         <Bar v-if="showStats" :data="computedData" :options="options" />
                     </div>
                 </div>
@@ -175,6 +172,15 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, ChartJSPluginDatalabels
 
 export default {
 
+    mounted() {
+        if (this.userPkmnList.includes(this.pkmn.regional_number)) {
+            this.isFavorited = true
+        }
+        else {
+            this.isFavorited = false
+        }
+    },
+
     setup() {
         const userStore = useUserStore();
 
@@ -191,7 +197,8 @@ export default {
         'pkmn',
         'backend',
         'apiUrl',
-        'postShinyData_endpoint'
+        'postShinyData_endpoint',
+        'userPkmnList'
     ],
 
     methods: {
@@ -206,28 +213,27 @@ export default {
             }
         },
         async postShinyPkmn(regional_number) {
-            axios.post(this.apiUrl + this.postShinyData_endpoint, { regional_number: regional_number })
-                .then(response => {
-                    // handle success
-                    if (response.data['Success'] == "added") {
-                        console.log("added to fav")
-                    }
-                    else {
-                        console.log("removed from fav")
-                    }
-                })
-                .catch(error => {
-                    // handle error
-                    console.error(error);
-                })
+            try {
+                const response = await axios.post(this.apiUrl + this.postShinyData_endpoint, { regional_number: regional_number })
+                if (response.data['Success'] == "added") {
+                    console.log(regional_number + " added to fav")
+                }
+                else {
+                    console.log(regional_number + " removed from fav")
+                }
+            } catch (error) {
+                // handle error
+                console.error(error);
+            }
         },
         isImageLoaded() {
             this.isLoaded = true;
             // emit('imageLoaded', selectedType.value.type)
         },
-        toggleFavorite() {
+        toggleFavorite(reg_number) {
             this.isFavorited = !this.isFavorited
-        }
+            this.postShinyPkmn(reg_number)
+        },
     },
 
     data() {
@@ -257,11 +263,13 @@ export default {
                 scales: {
                     y: {
                         suggestedMin: 0,
-                        suggestedMax: 150
+                        max: 300,
+                        display: false
                     },
                     x: {
-                        suggestedMin: 0,
-                        suggestedMax: 150
+                        grid: {
+                            display: false
+                        }
                     }
                 },
             },
