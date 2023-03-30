@@ -5055,6 +5055,11 @@
     "minipass" "^3.0.0"
     "yallist" "^4.0.0"
 
+"mitt@^3.0.0":
+  "integrity" "sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ=="
+  "resolved" "https://registry.npmjs.org/mitt/-/mitt-3.0.0.tgz"
+  "version" "3.0.0"
+
 "mkdirp@^0.5.6":
   "integrity" "sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw=="
   "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.6.tgz"
@@ -5246,6 +5251,13 @@
   "integrity" "sha512-DlL+XwOy3NxAQ8xuC0okPgK46iuVNAK01YN7RueYBqqFeGsBjV9XmCAzAdgt+667bCl5kPh9EqKKDwnaPG1I7A=="
   "resolved" "https://registry.npmjs.org/normalize-url/-/normalize-url-6.1.0.tgz"
   "version" "6.1.0"
+
+"notiwind@^2.0.0":
+  "integrity" "sha512-TRl3vTVnBEqvNQZM15oFtS63S6hGobkRIWTyvcGyNcOzsTPb8WybE6vuXTelUgUbMqQooSae1L25cqOyFMjTMg=="
+  "resolved" "https://registry.npmjs.org/notiwind/-/notiwind-2.0.0.tgz"
+  "version" "2.0.0"
+  dependencies:
+    "mitt" "^3.0.0"
 
 "npm-run-path@^2.0.0":
   "integrity" "sha512-lJxZYlT4DW/bRUtFh1MQIWqmLwQfAxnqWG4HhEdjMlkrJYnJn0Jrr2u3mgxqaWsdiBc76TYkTG/mhrnYTuzfHw=="
@@ -7163,7 +7175,7 @@
   "resolved" "https://registry.npmjs.org/vue-toast-notification/-/vue-toast-notification-3.1.1.tgz"
   "version" "3.1.1"
 
-"vue@*", "vue@^2 || ^3.2.13", "vue@^2.0.0 || >=3.0.0", "vue@^2.0.0 || >=3.0.0-rc.0", "vue@^2.6.0 || ^3.2.0", "vue@^2.6.14 || ^3.2.0", "vue@^3.0", "vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.0.0-0 || ^2.7.0", "vue@^3.2.0", "vue@^3.2.13", "vue@>= 3", "vue@>= 3.0.0 < 4", "vue@3.2.45":
+"vue@*", "vue@^2 || ^3.2.13", "vue@^2.0.0 || >=3.0.0", "vue@^2.0.0 || >=3.0.0-rc.0", "vue@^2.6.0 || ^3.2.0", "vue@^2.6.14 || ^3.2.0", "vue@^3.0", "vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.0.0-0 || ^2.7.0", "vue@^3.2.0", "vue@^3.2.13", "vue@^3.2.40", "vue@>= 3", "vue@>= 3.0.0 < 4", "vue@3.2.45":
   "integrity" "sha512-9Nx/Mg2b2xWlXykmCwiTUCWHbWIj53bnkizBxKai1g61f2Xit700A1ljowpTIM11e3uipOeiPcSqnmBg6gyiaA=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.45.tgz"
   "version" "3.2.45"

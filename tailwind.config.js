@@ -26,6 +26,12 @@ module.exports = {
         plante: '#63bb5b',
         glace:'#74cec0',
         acier:'#5a8ea1',
+        hp:'#ff6384',
+        atq:'#ff9f40',
+        def:'#4bc0c0',
+        spa:'#ffcd56',
+        spd:'#36a2eb',
+        spe:'#9966ff',
       }
     },
   },

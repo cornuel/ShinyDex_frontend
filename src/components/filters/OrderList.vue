@@ -1,9 +1,9 @@
 <template>
-  <div class="w-40">
+  <div class="w-44">
     <Listbox v-model="selectedSort">
       <div class="relative">
         <ListboxButton
-        :class="['ASCENDING ↑' === selectedSort.sort ? 'bg-white' : 'bg-amber-100 text-amber-900 font-medium border-2 border-amber-500']"
+        :class="['ASCENDING ↑' === selectedSort.sort ? 'bg-white' : 'border-4 border-amber-500 bg-amber-100 text-amber-900 font-medium']"
           class="relative w-full cursor-default rounded-lg py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
         >
           <span class="block truncate">{{ selectedSort.sort }}</span>

@@ -3,15 +3,26 @@
     <Listbox v-model="selectedSort">
       <div class="relative">
         <ListboxButton
-        :class="['# Regional Number' === selectedSort.sort ? 'bg-white' : 'bg-amber-100 text-amber-900 font-medium border-2 border-amber-500']"
-          class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+        class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+        :class="{
+              'bg-white border-0 text-gray-800': selectedSort.sort === '# Regional Number',
+              'bg-white border-0 text-gray-800': selectedSort.sort === '# National Number',
+              'bg-white border-0 text-gray-800': selectedSort.sort === 'Name EN',
+              'bg-white border-0 text-gray-800': selectedSort.sort === 'Name FR',
+              'bg-hp border-4 border-red-200 text-white': selectedSort.sort === 'Hp',
+              'bg-atq border-4 border-orange-200 text-white': selectedSort.sort === 'Attack',
+              'bg-def border-teal-200 border-4 text-white': selectedSort.sort === 'Defense',
+              'bg-spa border-yellow-100 border-4 text-white': selectedSort.sort === 'Special Attack',
+              'bg-spd border-blue-200 border-4 text-white': selectedSort.sort === 'Special Defense',
+              'bg-spe border-purple-200 border-4 text-white': selectedSort.sort === 'Speed',
+          }"
         >
           <span class="block truncate">{{ selectedSort.sort }}</span>
           <span
             class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
           >
           <ChevronDownIcon
-            :class="['# Regional Number' === selectedSort.sort ? 'text-gray-400' : 'text-amber-600']"
+              :class="['# Regional Number' === selectedSort.sort ? 'text-gray-400' : 'text-white']"
               class="h-5 w-5"
               aria-hidden="true"
             />

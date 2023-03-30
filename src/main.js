@@ -9,6 +9,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faStar as solidStar, faChartColumn as solidChart} from '@fortawesome/free-solid-svg-icons'
 import { faStar as regularStar} from '@fortawesome/free-regular-svg-icons'
 
+///Notiwind
+import Notifications from 'notiwind'
+
 import App from './App.vue'
 import SignUp from "./components/user/SignUp.vue"
 import LogIn from "./components/user/LogIn.vue"
@@ -49,6 +52,6 @@ app.component(
     'DashBoard', DashBoard
 );
 
-app.use(router).use(pinia).use(MotionPlugin).use(VueLazyLoad).mount("#app")
+app.use(router).use(pinia).use(MotionPlugin).use(VueLazyLoad).use(Notifications).mount("#app")
 
 

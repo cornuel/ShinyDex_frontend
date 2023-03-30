@@ -83,7 +83,7 @@ export default {
             }
 
             axios
-                .post('http://192.168.1.20:8000/api/v1/token/login', formData)
+                .post('http://localhost:3001/api/v1/token/login', formData)
                 .then(response => {
                     const token = response.data.auth_token
                     this.userStore.setToken(token)
