@@ -8,12 +8,12 @@
             <button type="submit">Sign up</button>
         </form>
     </div> -->
-  <div class="log-in">
-    <h1>Log in</h1>
+  <div class="sign-in">
 
     <div class="flex justify-center items-center mt-52">
       <div class="w-full max-w-xs text-left">
         <Form class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4" @submit="submitForm">
+          <img class="mx-auto mb-2" src="@/assets/shinydex.png" alt=""/>
           <div class="identity-input mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
               Email
@@ -54,6 +54,12 @@
               type="submit">
               Sign in
             </button>
+            <a
+              class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+              href="#log-in"
+            >
+              I have an account
+            </a>
           </div>
         </Form>
       </div>

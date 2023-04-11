@@ -1,10 +1,9 @@
 <template>
     <div class="log-in">
-        <h1>Log in</h1>
-
         <div class="flex justify-center items-center mt-52">
           <div class="w-full max-w-xs text-left">
             <Form class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4" @submit="submitForm">
+              <img class="mx-auto mb-2" src="@/assets/shinydex.png" alt=""/>
               <div class="identity-input mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2">
                   Username
@@ -38,9 +37,9 @@
                   </button>
                   <a
                     class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-                    href="#"
+                    href="#sign-up"
                   >
-                    Forgot Password?
+                    Create an account
                   </a>
                 </div>
             </Form>
@@ -88,12 +87,25 @@ export default {
                     const token = response.data.auth_token
                     this.userStore.setToken(token)
                     this.userStore.setUser(this.username)
+                    this.$notify({
+                        group: "foo",
+                        title: "Bravo",
+                        type: "bravo",
+                        text: `Bienvenue ${this.username} !`
+                    }, 3000) // 2s
                     axios.defaults.headers.common['Authorization'] = "Token " + token
                     this.$router.push('/dash-board')
-                    console.log(response)
+                    // console.log(response)
                 })
                 .catch(error => {
-                    console.log(error)
+                    if(error.code == 'ERR_BAD_REQUEST'){
+                      this.$notify({
+                          group: "foo",
+                          title: "Oups",
+                          type: "oups",
+                          text: `Mauvais identifiant ou mot de passe`,
+                      }, 3000) // 2s
+                    }
                 })
         },
         validateUsername(value) {

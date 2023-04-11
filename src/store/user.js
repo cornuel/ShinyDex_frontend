@@ -42,16 +42,5 @@ export const useUserStore = defineStore({
       localStorage.removeItem("user");
     },
 
-    //FILTERS
-    setSortOrder(sortOrder){
-      this.sortOrder = sortOrder;
-    },
-    setSortFilter(sortFilter) {
-      this.sortFilter = sortFilter;
-    },
-    setTypeFilter(typeFilter) {
-      this.typeFilter = typeFilter;
-    }
-
   },
 });

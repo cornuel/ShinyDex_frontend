@@ -100,7 +100,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const allTypes = computed(() => {
-      console.log(toRaw(props.typeList))
+      // console.log(toRaw(props.typeList))
       return props.typeList.length ? toRaw(props.typeList).sort().map(type => ({ type: type })) : defaultTypes
     })
 

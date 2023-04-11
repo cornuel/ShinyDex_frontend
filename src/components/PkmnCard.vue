@@ -25,7 +25,7 @@
                     </button>
                     <div>
                         <img class="w-full rounded-tl-md rounded-br-md rounded-tr-3xl"
-                            :class="!isFavorited ? 'grayscale' : 'grayscale-0'" :src="backend + pkmn.pokedex_img" alt="logo"
+                            :class="!isFavorited ? 'grayscale' : 'grayscale-0'" :src="pkmn.pokedex_img" alt="logo"
                             loading="lazy" />
                     </div>
                     <div class=" py-1">
@@ -170,8 +170,6 @@ export default {
     setup() {
         const userStore = useUserStore();
 
-        // const emit = defineEmits(['filterType_1'])
-
         return { userStore };
     },
 
@@ -201,6 +199,7 @@ export default {
         async postShinyPkmn(pkmn) {
             try {
                 const response = await axios.post(this.apiUrl + this.postShinyData_endpoint, { regional_number: pkmn.regional_number })
+                
                 if (response.data['Success'] == "added") {
                     console.log(pkmn.regional_number + " added to fav")
                     this.$notify({
@@ -209,6 +208,7 @@ export default {
                         type: "bravo",
                         text: `${pkmn.name_fr} a été ajouté à ta liste de shiny 😄 !`
                     }, 3000) // 2s
+                    this.$emit('computeSumOfOwnedPokemon', true)
                 }
                 else {
                     console.log(pkmn.regional_number + " removed from fav")
@@ -218,6 +218,7 @@ export default {
                         type: "oups",
                         text: `${pkmn.name_fr} a été enlevé de ta liste de shiny 🙁`
                     }, 3000) // 2s
+                    this.$emit('computeSumOfOwnedPokemon', false)
                 }
             } catch (error) {
                 // handle error

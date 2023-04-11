@@ -3,88 +3,26 @@
     <!-- Leftside navigation bar -->
     <!-- <NavBar /> -->
     <!-- Rightside content -->
-    <div class="z-40 w-[60rem] h-20 md:flex mx-auto inset-x-0 fixed p-5 rounded-lg justify-center items-center mt-10 gap-2 shadow-md border 
+    <div class="z-40 w-[70rem] h-20 md:flex mx-auto inset-x-0 fixed p-5 rounded-lg justify-center items-center mt-10 gap-2 shadow-md border 
                   backdrop-blur-lg border-gray-300 font-nunito">
+      <div v-if="!isLoading" class="mr-5">
+        {{ sumOfOwnedPokemon }} / {{ sumOfAllPokemon }}
+      </div>
       <OwnFilter @ownFilter="ownFilter" />
       <TypeFilter_1 @filterType_1="filterType_1" />
       <TypeFilter_2 :typeList="list_type_2" @filterType_2="filterType_2" />
       <SortList @filterSort="filterSort" />
       <OrderList @orderSort="orderSort" />
+      <LogOutButton />
     </div>
-
-    <NotificationGroup group="foo">
-      <div class="fixed z-50 inset-0 flex items-end justify-end p-6 px-4 py-6 pointer-events-none ">
-        <div class="w-full max-w-sm">
-          <Notification
-            v-slot="{ notifications }"
-            enter="transform ease-out duration-300 transition"
-            enter-from="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-4"
-            enter-to="translate-y-0 opacity-100 sm:translate-x-0"
-            leave="transition ease-in duration-500"
-            leave-from="opacity-100"
-            leave-to="opacity-0"
-            move="transition duration-500"
-            move-delay="delay-300"
-          >
-            <div v-for="notification in notifications" :key="notification.id">
-              <div
-                v-if="notification.type === 'bravo'"
-                class="flex w-full max-w-sm mx-auto mt-4 overflow-hidden bg-white rounded-lg shadow-md border-2 border-green-300"
-              >
-                <div class="flex items-center justify-center w-12 bg-green-300">
-                  <svg
-                    class="w-6 h-6 text-white fill-current"
-                    viewBox="0 0 40 40"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z"
-                    />
-                  </svg>
-                </div>
-
-                <div class="px-4 py-2 -mx-3">
-                  <div class="mx-3">
-                    <span class="font-semibold text-gray-500">{{ notification.title }}</span>
-                    <p class="text-sm text-green-400">{{ notification.text }}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                class="flex w-full max-w-sm mx-auto mt-4 overflow-hidden bg-white rounded-lg shadow-md border-2 border-red-400"
-                v-if="notification.type === 'oups'"
-              >
-                <div class="flex items-center justify-center w-12 bg-red-400">
-                  <svg
-                    class="w-6 h-6 text-white fill-current"
-                    viewBox="0 0 40 40"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z"
-                    />
-                  </svg>
-                </div>
-
-                <div class="px-4 py-2 -mx-3">
-                  <div class="mx-3">
-                    <span class="font-semibold text-gray-500">{{ notification.title }}</span>
-                    <p class="text-sm text-red-500">{{ notification.text }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Notification>
-        </div>
-      </div>
-    </NotificationGroup>
 
     <div v-if="!isLoading">
       <div class="z-0 p-10 md:p-28 left-44 grid bg-gray-100 grid-cols-1 mt-10
                         sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-5 scrollbar-gutter-stable">
-        <PkmnCard v-for="(pkmn, i) in data" :key="i" :pkmn="pkmn" :backend="backend" :apiUrl="apiUrl"
-          :postShinyData_endpoint="postShinyData_endpoint" :userPkmnList="userPkmnList" />
+        <PkmnCard v-for="(pkmn, i) in data" :key="i" 
+          :pkmn="pkmn" :backend="backend" :apiUrl="apiUrl"
+          :postShinyData_endpoint="postShinyData_endpoint" :userPkmnList="userPkmnList"
+          @computeSumOfOwnedPokemon="computeSumOfOwnedPokemon" />
       </div>
     </div>
     <div v-else>
@@ -108,6 +46,7 @@ import TypeFilter_1 from './filters/TypeFilter_1.vue';
 import TypeFilter_2 from './filters/TypeFilter_2.vue';
 import SortList from './filters/SortList.vue';
 import OrderList from './filters/OrderList.vue';
+import LogOutButton from './LogOutButton.vue';
 
 export default {
 
@@ -120,11 +59,17 @@ export default {
     TypeFilter_2,
     SortList,
     OrderList,
+    LogOutButton,
   },
 
   mounted() {
     this.isLoading = true
-    this.fetchMultipleUrls(this.apiUrl + this.getData, this.apiUrl + this.getUserPkmnList)
+    this.fetchMultipleUrls(
+      this.apiUrl + this.getData,
+      this.apiUrl + this.getUserPkmnList, 
+      this.apiUrl + this.getSumOfOwnedPokemon,
+      this.apiUrl + this.getSumOfAllPokemon )
+    document.title = "ShinyDex [ " + this.userStore.getUser + ' : ✨' + this.sumOfOwnedPokemon + " ]";
   },
 
   setup() {
@@ -148,6 +93,10 @@ export default {
     postShinyData_endpoint: 'postShinyData',
     getUserPkmnList: 'getUserPkmnList',
     getComplementaryType: 'getComplementaryType',
+    getSumOfOwnedPokemon: 'getSumOfOwnedPokemon',
+    getSumOfAllPokemon: 'getSumOfAllPokemon',
+    sumOfOwnedPokemon: '',
+    sumOfAllPokemon: '',
     data: [],
     userPkmnList: [],
     list_type_1: [],
@@ -166,8 +115,15 @@ export default {
 
   methods: {
 
-    async created() {
-      console.log(this.userStore.getUser)
+    computeSumOfOwnedPokemon(bool) {
+      if (bool) {
+        this.sumOfOwnedPokemon += 1;
+      }
+      else{
+        this.sumOfOwnedPokemon -= 1;
+      }
+
+      document.title = "ShinyDex [ " + this.userStore.getUser + ' : ✨' + this.sumOfOwnedPokemon + " ]";
     },
 
     async getDataWithTimeout(url) {
@@ -185,23 +141,31 @@ export default {
       }
     },
 
-    async fetchMultipleUrls(url1, url2) {
-      this.isLoading = false
-      this.isLoading = true
+    async fetchMultipleUrls(...urls) {
+      this.isLoading = true;
+
       try {
-        const [response_1, response_2] = await Promise.all([
-          this.getDataWithTimeout(url1),
-          this.getDataWithTimeout(url2),
-        ]);
+        const responses = await Promise.all(
+          urls.map(url => this.getDataWithTimeout(url))
+        );
 
-        this.data = response_1;
-        this.userPkmnList = response_2;
-        this.isLoading = false
+        console.log(responses)
 
+        // Set the data properties
+        this.data = responses[0];
+        this.userPkmnList = responses[1];
+        // if length of the response is more than 2, set the sumOfOwnedPokemon and sumOfAllPokemon properties
+        if (responses.length > 2) {
+          this.sumOfOwnedPokemon = responses[2];
+          this.sumOfAllPokemon = responses[3];
+        }
+
+        this.isLoading = false;
       } catch (error) {
         console.error(error);
       }
     },
+
 
     async fetchData(owned, type_1, type_2, sort, orderBy) {
 
