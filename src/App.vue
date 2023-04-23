@@ -23,8 +23,19 @@
 <script>
 import axios from 'axios'
 import ToastNotification from './components/ToastNotification.vue';
+import { initializeApp } from 'firebase/app';
 
 import { useUserStore } from "@/store/user";
+
+const firebaseConfig = {
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  databaseURL: process.env.FIREBASE_DATABASE_URL
+};
+
+initializeApp(firebaseConfig);
 
 export default {
   name: 'App',
@@ -64,13 +75,14 @@ export default {
   },
 
   created() {
-    this.$router.push('/log-in');
     document.title = "ShinyDex";
     if (this.user.token) {
+      this.$router.push('/dash-board');
       // Peutetre pas utile car isAuthenticated n'est que dans App.vue
       this.user.isAuthenticated = true;
-      axios.defaults.headers.common['Authorization'] = "Token " + this.user.token
+      axios.defaults.headers.common['Authorization'] = "Bearer " + this.user.token
     } else {
+      this.$router.push('/log-in');
       axios.defaults.headers.common['Authorization'] = ''
     }
   },

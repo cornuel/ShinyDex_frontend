@@ -2,6 +2,8 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { MotionPlugin } from '@vueuse/motion'
+import { VueSweetalert2 } from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 ///FontAwesome Icons
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -52,6 +54,6 @@ app.component(
     'DashBoard', DashBoard
 );
 
-app.use(router).use(pinia).use(MotionPlugin).use(VueLazyLoad).use(Notifications).mount("#app")
+app.use(router).use(pinia).use(MotionPlugin).use(VueLazyLoad).use(Notifications).use(VueSweetalert2).mount("#app")
 
 

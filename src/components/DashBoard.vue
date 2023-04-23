@@ -3,8 +3,8 @@
     <!-- Leftside navigation bar -->
     <!-- <NavBar /> -->
     <!-- Rightside content -->
-    <div class="z-40 w-[70rem] h-20 md:flex mx-auto inset-x-0 fixed p-5 rounded-lg justify-center items-center mt-10 gap-2 shadow-md border 
-                  backdrop-blur-lg border-gray-300 font-nunito">
+    <div class="z-40 w-full md:w-[70rem] h-20 flex mx-auto inset-x-0 fixed p-5 rounded-lg justify-center items-center md:mt-10 gap-2 shadow-md border
+            backdrop-blur-lg border-gray-300 font-nunito whitespace-nowrap">
       <div v-if="!isLoading" class="mr-5">
         {{ sumOfOwnedPokemon }} / {{ sumOfAllPokemon }}
       </div>
@@ -17,17 +17,17 @@
     </div>
 
     <div v-if="!isLoading">
-      <div class="z-0 p-10 md:p-28 left-44 grid bg-gray-100 grid-cols-1 mt-10
-                        sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-5 scrollbar-gutter-stable">
-        <PkmnCard v-for="(pkmn, i) in data" :key="i" 
-          :pkmn="pkmn" :backend="backend" :apiUrl="apiUrl"
+      <div
+        class="z-0 p-5 sm:p-10 md:p-28 left-44 grid bg-gray-100 grid-cols-2 mt-10
+                                sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-2 sm:gap-5 scrollbar-gutter-stable">
+        <PkmnCard v-for="(pkmn, i) in data" :key="i" :pkmn="pkmn" :backend="backend" :apiUrl="apiUrl"
           :postShinyData_endpoint="postShinyData_endpoint" :userPkmnList="userPkmnList"
           @computeSumOfOwnedPokemon="computeSumOfOwnedPokemon" />
       </div>
     </div>
     <div v-else>
       <div class="z-0 p-10 md:p-28 left-44 grid bg-gray-100 grid-cols-1 mt-10
-                      sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-5">
+                              sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-5">
         <PkmnCardSkeleton v-for="i in 36" :key="i" />
       </div>
     </div>
@@ -64,29 +64,23 @@ export default {
 
   mounted() {
     this.isLoading = true
-    this.fetchMultipleUrls(
+    this.fetchMultipleUrls({},
       this.apiUrl + this.getData,
-      this.apiUrl + this.getUserPkmnList, 
+      this.apiUrl + this.getUserPkmnList,
       this.apiUrl + this.getSumOfOwnedPokemon,
-      this.apiUrl + this.getSumOfAllPokemon )
+      this.apiUrl + this.getSumOfAllPokemon)
     document.title = "ShinyDex [ " + this.userStore.getUser + ' : ✨' + this.sumOfOwnedPokemon + " ]";
   },
 
   setup() {
     const userStore = useUserStore();
-    const instance = axios.create({
-      baseURL: "http://127.0.0.1:8000/api/v1/",
-    });
-    const urlGetAllPkmns = "/getData";
-    const urlGetUserPkmns = "/getUserData";
-    const urlPostShinyPkmn = "/postShinyData";
-    return { userStore, instance, urlGetAllPkmns, urlGetUserPkmns, urlPostShinyPkmn };
+    return { userStore };
 
   },
 
   data: () => ({
-    backend: 'http://localhost:3001',
-    apiUrl: 'http://localhost:3001/api/v1/',
+    backend: 'http://shinydex.pythonanywhere.com/',
+    apiUrl: 'http://shinydex.pythonanywhere.com/api/v1/',
     getData: 'getData',
     getUserData: 'getUserData',
     getUnownedPokemon: 'getUnownedPokemon',
@@ -119,37 +113,38 @@ export default {
       if (bool) {
         this.sumOfOwnedPokemon += 1;
       }
-      else{
+      else {
         this.sumOfOwnedPokemon -= 1;
       }
 
       document.title = "ShinyDex [ " + this.userStore.getUser + ' : ✨' + this.sumOfOwnedPokemon + " ]";
     },
 
-    async getDataWithTimeout(url) {
-      // use axios.post() method with the URL as a parameter
-      try {
-        const response = await axios.post(url);
-        // handle success
-        // console.log(response.data);
-        // assign the response data to the component data property
-        return response.data
-      } catch (error) {
-        // Handle errors
-        console.error(error);
-        throw error;
+    async getApiData(parameters, url) {
+      if (this.userStore.getToken) {
+        const response = await axios.post(url, parameters);
+        return response.data;
+      }
+      else {
+        this.$notify({
+          group: "foo",
+          title: "Oups",
+          type: "oups",
+          text: `La session est expirée, veuillez vous reconnecter`,
+        }, 3000) // 2s
+        this.$router.push('/log-in');
       }
     },
 
-    async fetchMultipleUrls(...urls) {
+    async fetchMultipleUrls(parameters, ...urls) {
       this.isLoading = true;
 
       try {
         const responses = await Promise.all(
-          urls.map(url => this.getDataWithTimeout(url))
+          urls.map(url => this.getApiData(parameters, url))
         );
 
-        console.log(responses)
+        // console.log(responses)
 
         // Set the data properties
         this.data = responses[0];
@@ -162,26 +157,38 @@ export default {
 
         this.isLoading = false;
       } catch (error) {
-        console.error(error);
+        // INVALID ID Token
+        this.userStore.removeToken();
+        this.userStore.removeUser();
+
+        // Redirect to the login page
+        document.title = "ShinyDex";
+        this.$router.push('/log-in');
+        // console.error(error);
       }
     },
 
 
-    async fetchData(owned, type_1, type_2, sort, orderBy) {
-
-      let l_filter = '';
-
-      if (type_1) {
-        l_filter += `?type=${type_1}`;
-      }
-      if (type_2) {
-        l_filter += type_1 ? `&type=${type_2}` : `?type=${type_2}`;
-      }
-      if (sort) {
-        l_filter += type_1 || type_2 ? `&order_by=${orderBy}${sort}` : `?order_by=${orderBy}${sort}`;
-      }
+    async fetchData(owned, type_1, type_2, order_by, sort_order) {
 
       let l_endPoint = ''
+      let parameters = {}
+
+      if (type_1) {
+        parameters.type_1 = type_1
+      }
+
+      if (type_2) {
+        parameters.type_2 = type_2
+      }
+
+      if (sort_order) {
+        parameters.sort_order = sort_order
+      }
+
+      if (order_by) {
+        parameters.order_by = order_by
+      }
 
       if (owned == '') {
         l_endPoint = this.getData
@@ -195,7 +202,7 @@ export default {
       }
 
       this.isLoading = true
-      this.fetchMultipleUrls(this.apiUrl + l_endPoint + l_filter, this.apiUrl + this.getUserPkmnList)
+      this.fetchMultipleUrls(parameters, this.apiUrl + l_endPoint, this.apiUrl + this.getUserPkmnList)
     },
 
     async ownFilter(rawOwned) {
@@ -266,13 +273,12 @@ export default {
 
     orderSort(rawType) {
       this.rawType = rawType;
-      // console.log(this.rawType)
 
       if (this.rawType == 'DESCENDING ↓') {
-        this.apiOrder = '-';
+        this.apiOrder = 'desc';
       }
       else {
-        this.apiOrder = '';
+        this.apiOrder = 'asc';
       }
 
       this.fetchData(this.sortOwned, this.apiType_1, this.apiType_2, this.apiSort, this.apiOrder)

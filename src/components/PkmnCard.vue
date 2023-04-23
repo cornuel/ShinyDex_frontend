@@ -5,15 +5,14 @@
                                 items-stretch h-full
                                 rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl 
                                 border-1 border-gray-200 shadow-lg bg-gray-50 bg-gradient-to-r"
-                                :class="pokemonGradient"
-            >
+            :class="pokemonGradient">
             <Transition name="fade" mode="out-in">
                 <div v-if="showPokedexImg" class="post">
                     <button class=" z-30 absolute top-4 right-4 p-2.5 rounded-full bg-[#f3f4f6] active:bg-slate-600
                                                     shadow-sm  hover:shadow-red-500
                                                     ease-linear transition-all duration-150" :class="{
-                                                        'favorited': isFavorited,
-                                                    }" @click.stop="toggleFavorite(pkmn)">
+                                                            'favorited': isFavorited,
+                                                        }" @click.stop="confirmToggleFavorite(pkmn)">
                         <svg xmlns="http://www.w3.org/2000/svg" fill-opacity="1" viewBox="0 0 20 20"
                             :fill="isFavorited ? '#f43f5e' : 'white'" :stroke="isFavorited ? '#f43f5e' : 'gray'"
                             class="w-4 h-4">
@@ -31,68 +30,69 @@
                     <div class=" py-1">
                         <div class="flex justify-between -mb-5">
                             <div
-                                class=" font-rubik tracking-wide italic mb-1 text-gray-700 drop-shadow-sm text-sm shadow-gray-200 mx-5">
+                                class=" font-rubik tracking-wide italic mb-1 text-gray-700 drop-shadow-sm text-xs sm:text-sm shadow-gray-200 mx-3 sm:mx-5">
                                 {{ pkmn.regional_number }}
                             </div>
                             <div
-                                class=" font-rubik tracking-wide italic mb-1 text-gray-700 drop-shadow-sm text-sm shadow-gray-200 mx-5">
+                                class=" font-rubik tracking-wide italic mb-1 text-gray-700 drop-shadow-sm text-xs sm:text-sm shadow-gray-200 mx-3 sm:mx-5">
                                 {{ pkmn.national_number }}
                             </div>
                         </div>
                         <div
-                            class="font-nunito font-semibold text-center mb-1 text-gray-700 drop-shadow-sm shadow-gray-200">
+                            class="font-nunito font-semibold text-center mb-1 text-gray-700 drop-shadow-sm text-xs sm:text-sm shadow-gray-200">
                             {{ pkmn.name_fr }}
                         </div>
-                        <p v-if="showPokedexImg" class="font-rubik tracking-wide italic text-gray-700 text-sm text-center">
+                        <p v-if="showPokedexImg"
+                            class="font-rubik tracking-wide italic text-gray-700 text-xs sm:text-sm text-center">
                             {{ pkmn.name_en }}
                         </p>
                     </div>
                     <div v-if="showPokedexImg"
                         class="flex align-items justify-center px-5 text-gray-50 font-rubik tracking-wide uppercase text-sm">
                         <span :class="{
-                            'bg-green-400': pkmn.type_1 === 'plante',
-                            'bg-red-500 ': pkmn.type_1 === 'feu',
-                            'bg-blue-500 ': pkmn.type_1 === 'eau',
-                            'bg-orange-400 ': pkmn.type_1 === 'combat',
-                            'bg-indigo-900 ': pkmn.type_1 === 'spectre',
-                            'bg-normal ': pkmn.type_1 === 'normal',
-                            'bg-insecte ': pkmn.type_1 === 'insecte',
-                            'bg-slate-400 ': pkmn.type_1 === 'acier',
-                            'bg-blue-300 ': pkmn.type_1 === 'vol',
-                            'bg-indigo-600 ': pkmn.type_1 === 'dragon',
-                            'bg-yellow-300 ': pkmn.type_1 === 'electrik',
-                            'bg-pink-400 ': pkmn.type_1 === 'fee',
-                            'bg-cyan-300 ': pkmn.type_1 === 'glace',
-                            'bg-purple-400 ': pkmn.type_1 === 'poison',
-                            'bg-rose-400 ': pkmn.type_1 === 'psy',
-                            'bg-yellow-600 ': pkmn.type_1 === 'roche',
-                            'bg-yellow-700 ': pkmn.type_1 === 'sol',
-                            'bg-slate-800 ': pkmn.type_1 === 'tenebres',
-                        }"
-                            class="block mx-1 rounded-full px-3 py-1 align-items justify-center text-xs mb-2 shadow-md border-2 border-white">
+                                'bg-green-400': pkmn.type_1 === 'plante',
+                                'bg-red-500 ': pkmn.type_1 === 'feu',
+                                'bg-blue-500 ': pkmn.type_1 === 'eau',
+                                'bg-orange-400 ': pkmn.type_1 === 'combat',
+                                'bg-indigo-900 ': pkmn.type_1 === 'spectre',
+                                'bg-normal ': pkmn.type_1 === 'normal',
+                                'bg-insecte ': pkmn.type_1 === 'insecte',
+                                'bg-slate-400 ': pkmn.type_1 === 'acier',
+                                'bg-blue-300 ': pkmn.type_1 === 'vol',
+                                'bg-indigo-600 ': pkmn.type_1 === 'dragon',
+                                'bg-yellow-300 ': pkmn.type_1 === 'electrik',
+                                'bg-pink-400 ': pkmn.type_1 === 'fee',
+                                'bg-cyan-300 ': pkmn.type_1 === 'glace',
+                                'bg-purple-400 ': pkmn.type_1 === 'poison',
+                                'bg-rose-400 ': pkmn.type_1 === 'psy',
+                                'bg-yellow-600 ': pkmn.type_1 === 'roche',
+                                'bg-yellow-700 ': pkmn.type_1 === 'sol',
+                                'bg-slate-800 ': pkmn.type_1 === 'tenebres',
+                            }"
+                            class="block sm:mx-1 rounded-full px-1 sm:px-3 py-1 align-items justify-center text-xs sm:text-xs mb-2 shadow-md border-2 border-white">
                             {{ capitalized(pkmn.type_1) }}
                         </span>
                         <span v-if="pkmn.type_2 != 'NA'" :class="{
-                            'bg-green-400': pkmn.type_2 === 'plante',
-                            'bg-red-500 ': pkmn.type_2 === 'feu',
-                            'bg-blue-500 ': pkmn.type_2 === 'eau',
-                            'bg-orange-400 ': pkmn.type_2 === 'combat',
-                            'bg-indigo-900 ': pkmn.type_2 === 'spectre',
-                            'bg-normal ': pkmn.type_2 === 'normal',
-                            'bg-insecte ': pkmn.type_2 === 'insecte',
-                            'bg-slate-400 ': pkmn.type_2 === 'acier',
-                            'bg-blue-300 ': pkmn.type_2 === 'vol',
-                            'bg-indigo-600 ': pkmn.type_2 === 'dragon',
-                            'bg-yellow-300 ': pkmn.type_2 === 'electrik',
-                            'bg-pink-400 ': pkmn.type_2 === 'fee',
-                            'bg-cyan-300 ': pkmn.type_2 === 'glace',
-                            'bg-purple-400 ': pkmn.type_2 === 'poison',
-                            'bg-rose-400 ': pkmn.type_2 === 'psy',
-                            'bg-yellow-600 ': pkmn.type_2 === 'roche',
-                            'bg-yellow-700 ': pkmn.type_2 === 'sol',
-                            'bg-slate-800 ': pkmn.type_2 === 'tenebres',
-                        }"
-                            class="block mx-1 rounded-full px-3 py-1 text-xs mb-2 shadow-md border-2 border-white text-gray-50">
+                                'bg-green-400': pkmn.type_2 === 'plante',
+                                'bg-red-500 ': pkmn.type_2 === 'feu',
+                                'bg-blue-500 ': pkmn.type_2 === 'eau',
+                                'bg-orange-400 ': pkmn.type_2 === 'combat',
+                                'bg-indigo-900 ': pkmn.type_2 === 'spectre',
+                                'bg-normal ': pkmn.type_2 === 'normal',
+                                'bg-insecte ': pkmn.type_2 === 'insecte',
+                                'bg-slate-400 ': pkmn.type_2 === 'acier',
+                                'bg-blue-300 ': pkmn.type_2 === 'vol',
+                                'bg-indigo-600 ': pkmn.type_2 === 'dragon',
+                                'bg-yellow-300 ': pkmn.type_2 === 'electrik',
+                                'bg-pink-400 ': pkmn.type_2 === 'fee',
+                                'bg-cyan-300 ': pkmn.type_2 === 'glace',
+                                'bg-purple-400 ': pkmn.type_2 === 'poison',
+                                'bg-rose-400 ': pkmn.type_2 === 'psy',
+                                'bg-yellow-600 ': pkmn.type_2 === 'roche',
+                                'bg-yellow-700 ': pkmn.type_2 === 'sol',
+                                'bg-slate-800 ': pkmn.type_2 === 'tenebres',
+                            }"
+                            class="block sm:mx-1 rounded-full px-1 sm:px-3 py-1 align-items justify-center text-xs sm:text-xs mb-2 shadow-md border-2 border-white">
                             {{ capitalized(pkmn.type_2) }}
                         </span>
                     </div>
@@ -152,6 +152,7 @@ import ChartJSPluginDatalabels from "chartjs-plugin-datalabels";
 import { Bar } from 'vue-chartjs'
 import axios from 'axios'
 import { useUserStore } from "@/store/user";
+import Swal from 'sweetalert2'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ChartJSPluginDatalabels)
 
@@ -159,7 +160,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, ChartJSPluginDatalabels
 export default {
 
     mounted() {
-        if (this.userPkmnList.includes(this.pkmn.regional_number)) {
+        if (Array.isArray(this.userPkmnList) && this.userPkmnList.includes(this.pkmn.national_number)) {
             this.isFavorited = true
         }
         else {
@@ -198,10 +199,10 @@ export default {
         },
         async postShinyPkmn(pkmn) {
             try {
-                const response = await axios.post(this.apiUrl + this.postShinyData_endpoint, { regional_number: pkmn.regional_number })
-                
+                const response = await axios.post(this.apiUrl + this.postShinyData_endpoint, { pkmn: pkmn.national_number })
+
                 if (response.data['Success'] == "added") {
-                    console.log(pkmn.regional_number + " added to fav")
+                    // console.log(pkmn.regional_number + " added to fav")
                     this.$notify({
                         group: "foo",
                         title: "Bravo",
@@ -211,7 +212,7 @@ export default {
                     this.$emit('computeSumOfOwnedPokemon', true)
                 }
                 else {
-                    console.log(pkmn.regional_number + " removed from fav")
+                    // console.log(pkmn.regional_number + " removed from fav")
                     this.$notify({
                         group: "foo",
                         title: "Oups",
@@ -222,12 +223,39 @@ export default {
                 }
             } catch (error) {
                 // handle error
-                console.error(error);
+                this.$notify({
+                    group: "foo",
+                    title: "Oups",
+                    type: "oups",
+                    text: `La session est expirée, veuillez vous reconnecter`,
+                }, 3000) // 2s
+                this.$router.push('/log-in');
+                // console.error(error);
             }
         },
         isImageLoaded() {
             this.isLoaded = true;
             // emit('imageLoaded', selectedType.value.type)
+        },
+        confirmToggleFavorite(pkmn) {
+            if (this.isFavorited) {
+                Swal.fire({
+                    title: 'Es-tu sur?',
+                    text: `${pkmn.name_fr} est sur le point d'être supprimer de ta liste de shiny ..`,
+                    imageUrl: `${pkmn.pokedex_img}`,
+                    showCancelButton: true,
+                    confirmButtonText: 'Oui',
+                    cancelButtonText: 'Non, annule!',
+                    confirmButtonColor: '#56e21f',
+                    cancelButtonColor: '#d33',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.toggleFavorite(pkmn);
+                    }
+                })
+            } else {
+                this.toggleFavorite(pkmn);
+            }
         },
         toggleFavorite(pkmn) {
             this.isFavorited = !this.isFavorited
@@ -327,7 +355,7 @@ export default {
                         borderWidth: 2,
                         borderRadius: {
                             topLeft: 10,
-                            topRight:10,
+                            topRight: 10,
                         },
                     }
                 ],
@@ -351,4 +379,5 @@ export default {
 
 /* .favorite-button.favorited {
   color: red;
-} */</style>
+} */
+</style>

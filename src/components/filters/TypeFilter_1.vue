@@ -117,7 +117,7 @@ const emit = defineEmits(['filterType_1'])
 const handleClick = async () => {
   // this.userStore.setTypeFilter(selectedType.value.type)
   emit('filterType_1', selectedType.value.type)
-  console.log(selectedType.value.type)
+  // console.log(selectedType.value.type)
 }
 
 

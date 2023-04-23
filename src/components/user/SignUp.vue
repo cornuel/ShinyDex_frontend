@@ -26,7 +26,7 @@
               :rules="validateEmail" />
             <ErrorMessage class="text-xs text-red-700" name="email" />
           </div>
-          <div class="identity-input mb-4">
+          <!-- <div class="identity-input mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
               Username
             </label>
@@ -37,7 +37,7 @@
               v-model="username"
               :rules="validateUsername" />
             <ErrorMessage class="text-xs text-red-700" name="username" />
-          </div>
+          </div> -->
           <label class="block text-gray-700 text-sm font-bold mb-2">
             Password
           </label>
@@ -84,27 +84,25 @@ export default {
   data() {
     return {
       email: '',
-      username: '',
+      // username: '',
       password: ''
     }
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       const formData = {
         email: this.email,
-        username: this.username,
+        // username: this.username,
         password: this.password
       }
 
       axios
-        .post('http://127.0.0.1:8000/api/v1/users/', formData)
-        .then(response => {
-
+        .post('http://shinydex.pythonanywhere.com/api/v1/signup', formData)
+        .then(() => {
           this.$router.push('/log-in')
-          console.log(response)
         })
-        .catch(error => {
-          console.log(error)
+        .catch(() => {
+          // console.log(error)
         })
     },
     validateEmail(value) {
