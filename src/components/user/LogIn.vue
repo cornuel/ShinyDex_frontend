@@ -1,5 +1,5 @@
 <template>
-  <div class="log-in">
+  <div class="log-in h-screen">
     <div class="flex justify-center items-center mt-52">
       <div class="w-full max-w-xs text-left">
         <Form class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4" @submit="submitForm">
@@ -9,9 +9,9 @@
               Email
             </label>
             <Field
-              class="shadow appearance-none rounded-md w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              class="shadow appearance-none rounded-md w-full py-2 px-3 text-gray-700 mb-3 leading-tight hover:outline-1 focus:outline-none focus:shadow-outline"
               type="email" name="email" v-model="email" :rules="validateUsername" />
-            <ErrorMessage class="text-xs text-red-700" name="email" />
+            <ErrorMessage class="text-xs text-pink-600" name="email" />
           </div>
           <label class="block text-gray-700 text-sm font-bold mb-2">
             Password
@@ -19,14 +19,14 @@
           <Field
             class="shadow appearance-none rounded-md w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             type="password" name="password" v-model="password" :rules="validatePassword" />
-          <ErrorMessage class="text-xs text-red-700" name="password" />
+          <ErrorMessage class="text-xs text-pink-600" name="password" />
           <div class="flex items-center justify-between">
             <button
-              class="bg-blue-600 hover:bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              class="bg-purple-400 hover:bg-yellow-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit">
               Log In
             </button>
-            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#sign-up">
+            <a class="inline-block align-baseline font-bold text-sm text-purple-400 hover:text-yellow-300" href="#sign-up">
               Create an account
             </a>
           </div>
@@ -111,7 +111,7 @@ export default {
     },
     validateUsername(value) {
       if (!value) {
-        return 'Username is required';
+        return 'Email is required';
       }
       return true;
     },
@@ -124,3 +124,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.log-in {
+  background-color: #f3f4f6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='%23a59bec' fill-opacity='0.14'%3E%3Cpolygon fill-rule='evenodd' points='8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4'/%3E%3C/g%3E%3C/svg%3E");
+}
+</style>

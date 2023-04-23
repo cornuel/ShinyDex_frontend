@@ -1,14 +1,5 @@
 <template>
-  <!-- <div class="sign-up">
-        <h1>Sign up</h1>
-        <form @submit.prevent="submitForm">
-            <input type="email" name="email" v-model="email">
-            <input type="username" name="username" v-model="username">
-            <input type="password" name="password" v-model="password">
-            <button type="submit">Sign up</button>
-        </form>
-    </div> -->
-  <div class="sign-in">
+  <div class="sign-in h-screen">
 
     <div class="flex justify-center items-center mt-52">
       <div class="w-full max-w-xs text-left">
@@ -24,7 +15,7 @@
               name="email"
               v-model="email"
               :rules="validateEmail" />
-            <ErrorMessage class="text-xs text-red-700" name="email" />
+            <ErrorMessage class="text-xs text-pink-600" name="email" />
           </div>
           <!-- <div class="identity-input mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
@@ -36,7 +27,7 @@
               name="username"
               v-model="username"
               :rules="validateUsername" />
-            <ErrorMessage class="text-xs text-red-700" name="username" />
+            <ErrorMessage class="text-xs text-pink-600" name="username" />
           </div> -->
           <label class="block text-gray-700 text-sm font-bold mb-2">
             Password
@@ -47,15 +38,15 @@
             name="password" 
             v-model="password"
             :rules="validatePassword" />
-          <ErrorMessage class="text-xs text-red-700" name="password" />
+          <ErrorMessage class="text-xs text-pink-600" name="password" />
           <div class="flex items-center justify-between">
             <button
-              class="bg-blue-600 hover:bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              class="bg-purple-400 hover:bg-yellow-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit">
               Sign in
             </button>
             <a
-              class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+              class="inline-block align-baseline font-bold text-sm text-purple-400 hover:text-yellow-300"
               href="#log-in"
             >
               I have an account
@@ -135,3 +126,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.sign-in {
+  background-color: #f3f4f6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='%23a59bec' fill-opacity='0.14'%3E%3Cpolygon fill-rule='evenodd' points='8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4'/%3E%3C/g%3E%3C/svg%3E");
+}
+</style>

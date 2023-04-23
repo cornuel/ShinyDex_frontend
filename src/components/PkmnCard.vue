@@ -4,15 +4,14 @@
         <div class="relative 
                                 items-stretch h-full
                                 rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl 
-                                border-1 border-gray-200 shadow-lg bg-gray-50 bg-gradient-to-r"
-            :class="pokemonGradient">
+                                border-1 border-gray-200 shadow-lg"
+            :class="isFavorited ? 'favorited' : 'bg-slate-50'" >
             <Transition name="fade" mode="out-in">
                 <div v-if="showPokedexImg" class="post">
                     <button class=" z-30 absolute top-4 right-4 p-2.5 rounded-full bg-[#f3f4f6] active:bg-slate-600
                                                     shadow-sm  hover:shadow-red-500
-                                                    ease-linear transition-all duration-150" :class="{
-                                                            'favorited': isFavorited,
-                                                        }" @click.stop="confirmToggleFavorite(pkmn)">
+                                                    ease-linear transition-all duration-150" 
+                            @click.stop="confirmToggleFavorite(pkmn)">
                         <svg xmlns="http://www.w3.org/2000/svg" fill-opacity="1" viewBox="0 0 20 20"
                             :fill="isFavorited ? '#f43f5e' : 'white'" :stroke="isFavorited ? '#f43f5e' : 'gray'"
                             class="w-4 h-4">
@@ -39,7 +38,7 @@
                             </div>
                         </div>
                         <div
-                            class="font-nunito font-semibold text-center mb-1 text-gray-700 drop-shadow-sm text-xs sm:text-sm shadow-gray-200">
+                            class="font-nunito font-semibold text-center mb-1 text-gray-700 shadow-slate-50 ">
                             {{ pkmn.name_fr }}
                         </div>
                         <p v-if="showPokedexImg"
@@ -110,7 +109,7 @@
                             </div>
                         </div>
                         <div
-                            class="font-nunito font-semibold text-center mb-1 text-gray-700 drop-shadow-sm shadow-gray-200">
+                            class="font-nunito font-semibold text-center mb-1 text-gray-700 shadow-slate-50 shadow-lg">
                             {{ pkmn.name_fr }}
                         </div>
                         <p v-if="showPokedexImg" class="text-gray-700 text-sm text-center">
@@ -119,7 +118,7 @@
                     </div>
                     <div class="flex justify-center">
                         <button @click.stop="showStats = !showStats"
-                            class="text-rubik cursor-pointer bg-slate-200 active:bg-slate-300 text-slate-600 text-sm p-2 h-8 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+                            class="z-10 cursor-pointer bg-slate-200 active:bg-slate-300 text-slate-600 text-sm p-2 h-8 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
                             type="button">
                             <font-awesome-icon icon="fa-solid fa-chart-column" />
                             <span v-if="!showStats">
@@ -313,9 +312,6 @@ export default {
     },
 
     computed: {
-        pokemonGradient() {
-            return `from-${this.pkmn.type_1} to-${this.pkmn.type_2}`;
-        },
         computedData() {
             return {
                 labels: [
@@ -376,8 +372,8 @@ export default {
 .fade-leave-to {
     opacity: 0;
 }
-
-/* .favorite-button.favorited {
-  color: red;
-} */
+.favorited {
+    background-color: #f8fafc;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'%3E%3Cg fill='%23fbe68b' fill-opacity='0.40'%3E%3Cpolygon fill-rule='evenodd' points='8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4'/%3E%3C/g%3E%3C/svg%3E");
+}
 </style>

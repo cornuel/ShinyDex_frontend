@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;1,300&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
   </head>
   <ToastNotification />
-  <div id="app" class="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 text-gray-800">
+  <div id="app" class="h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-gray-100 text-gray-800">
     <div id="nav" v-if="!this.userStore.user">
       <RouterLink to="/sign-up" />
       <RouterLink to="/log-in" />

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.userStore.user" class="scroll-smooth overflow-visible">
+  <div v-if="this.userStore.user" class="dashboard scroll-smooth overflow-visible">
     <!-- Leftside navigation bar -->
     <!-- <NavBar /> -->
     <!-- Rightside content -->
@@ -18,7 +18,7 @@
       <LogOutButton />
     </div>
 
-    <div v-if="!isLoading">
+    <div v-if="!isLoading" class="cards-container">
       <div
         class="z-0 p-5 sm:p-10 md:p-28 left-44 grid bg-gray-100 grid-cols-2 mt-10
                                 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-2 sm:gap-5 scrollbar-gutter-stable">
