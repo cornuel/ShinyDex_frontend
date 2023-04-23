@@ -70,7 +70,7 @@ export default {
       }
 
       axios
-        .post('http://shinydex.pythonanywhere.com/api/v1/login', formData)
+        .post('https://shinydex.pythonanywhere.com/api/v1/login', formData)
         .then(response => {
           if (response.data.token == "Invalid email or password") {
             this.$notify({

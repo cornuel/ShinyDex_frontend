@@ -10,7 +10,9 @@
       </div>
       <OwnFilter @ownFilter="ownFilter" />
       <TypeFilter_1 @filterType_1="filterType_1" />
-      <TypeFilter_2 :typeList="list_type_2" @filterType_2="filterType_2" />
+      <div v-if="apiType_1">
+        <TypeFilter_2 :typeList="list_type_2" @filterType_2="filterType_2" />
+      </div>
       <SortList @filterSort="filterSort" />
       <OrderList @orderSort="orderSort" />
       <LogOutButton />
@@ -79,8 +81,8 @@ export default {
   },
 
   data: () => ({
-    backend: 'http://shinydex.pythonanywhere.com/',
-    apiUrl: 'http://shinydex.pythonanywhere.com/api/v1/',
+    backend: 'https://shinydex.pythonanywhere.com/',
+    apiUrl: 'https://shinydex.pythonanywhere.com/api/v1/',
     getData: 'getData',
     getUserData: 'getUserData',
     getUnownedPokemon: 'getUnownedPokemon',

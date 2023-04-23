@@ -3,7 +3,7 @@
     <Listbox v-model="selectedType">
       <div class="relative">
         <ListboxButton
-        :class="{
+          :class="{
               'bg-white border-0 text-gray-800 ': selectedType.type === 'Tous les types',
               'bg-green-400 border-green-200 text-white': selectedType.type === 'Plante',
               'bg-red-500 border-red-300 text-white': selectedType.type === 'Feu',
@@ -24,12 +24,20 @@
               'bg-yellow-700 border-yellow-500 text-white': selectedType.type === 'Sol',
               'bg-slate-800 border-slate-400 text-white': selectedType.type === 'Tenebres',
           }"
-          class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white 
-          focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm border-4 transition duration-200 ease-in-out">
-          <span class="block truncate">{{ selectedType.type }}</span>
-          <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-            <ChevronDownIcon :class="['Tous les types' === selectedType.type ? 'text-gray-400' : 'text-white']"
-              class="h-5 w-5" aria-hidden="true" />
+          class="relative w-full cursor-default rounded-lg py-2 pl-3 pr-10 text-left shadow-md 
+          focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white 
+          focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 
+          sm:text-sm border-4 overflow-y-hidden transition duration-200 ease-in-out"
+        >
+          <span class="block truncate">{{ selectedType.type === 'Tous les types' ? 'Type 2' : selectedType.type }}</span>
+          <span
+            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
+          >
+          <ChevronDownIcon
+            :class="['Tous les types' === selectedType.type ? 'text-gray-400' : 'text-white']"
+              class="h-5 w-5"
+              aria-hidden="true"
+            />
           </span>
         </ListboxButton>
 
@@ -101,7 +109,9 @@ export default defineComponent({
   setup(props, { emit }) {
     const allTypes = computed(() => {
       // console.log(toRaw(props.typeList))
-      return props.typeList.length ? toRaw(props.typeList).sort().map(type => ({ type: type })) : defaultTypes
+      const newTypeList = props.typeList
+      const typeListWithNewElement = ['Tous les types', ...newTypeList.sort()]
+      return typeListWithNewElement.length ? toRaw(typeListWithNewElement).map(type => ({ type: type })) : defaultTypes
     })
 
     const selectedType = ref(allTypes.value[0])

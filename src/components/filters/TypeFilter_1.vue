@@ -29,7 +29,7 @@
           focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 
           sm:text-sm border-4 overflow-y-hidden transition duration-200 ease-in-out"
         >
-          <span class="block truncate">{{ selectedType.type }}</span>
+          <span class="block truncate">{{ selectedType.type === 'Tous les types' ? 'Type 1' : selectedType.type }}</span>
           <span
             class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
           >

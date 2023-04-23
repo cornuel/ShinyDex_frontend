@@ -97,7 +97,7 @@ export default {
       }
 
       axios
-        .post('http://shinydex.pythonanywhere.com/api/v1/signup', formData)
+        .post('https://shinydex.pythonanywhere.com/api/v1/signup', formData)
         .then(() => {
           this.$router.push('/log-in')
         })
