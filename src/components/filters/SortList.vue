@@ -1,20 +1,20 @@
 <template>
-  <div class="w-48 ">
+  <div class="sm:w-40 w-full z-[50]">
     <Listbox v-model="selectedSort">
       <div class="relative">
         <ListboxButton
-        class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+        class="relative w-full cursor-pointer rounded-lg py-1.5 pl-3 pr-10 text-left shadow-md"
         :class="{
-              'bg-white border-0 text-gray-800': selectedSort.sort === '# Regional Number',
-              'bg-white border-0 text-gray-800': selectedSort.sort === '# National Number',
-              'bg-white border-0 text-gray-800': selectedSort.sort === 'Name EN',
-              'bg-white border-0 text-gray-800': selectedSort.sort === 'Name FR',
-              'bg-hp border-4 border-red-200 text-white': selectedSort.sort === 'Hp',
-              'bg-atq border-4 border-orange-200 text-white': selectedSort.sort === 'Attack',
-              'bg-def border-teal-200 border-4 text-white': selectedSort.sort === 'Defense',
-              'bg-spa border-yellow-100 border-4 text-white': selectedSort.sort === 'Special Attack',
-              'bg-spd border-blue-200 border-4 text-white': selectedSort.sort === 'Special Defense',
-              'bg-spe border-purple-200 border-4 text-white': selectedSort.sort === 'Speed',
+              'bg-white border-0 text-gray-800': selectedSort.sort === '# Regional',
+              'bg-hp border-2 border-red-200 text-white': selectedSort.sort === 'HP',
+              'bg-atq border-2 border-orange-200 text-white': selectedSort.sort === 'Attaque',
+              'bg-def border-teal-200 border-2 text-white': selectedSort.sort === 'Defense',
+              'bg-spa border-yellow-100 border-2 text-white': selectedSort.sort === 'Attaque Special',
+              'bg-spd border-blue-200 border-2 text-white': selectedSort.sort === 'Defense Special',
+              'bg-spe border-purple-200 border-2 text-white': selectedSort.sort === 'Vitesse',
+              'bg-amber-100 border-2 border-purple-400 text-purple-600': selectedSort.sort === 'Nom EN',
+              'bg-amber-100 border-2 border-purple-400 text-purple-600': selectedSort.sort === 'Nom FR',
+              'bg-amber-100 border-2 border-purple-400 text-purple-600': selectedSort.sort === '# National',
           }"
         >
           <span class="block truncate">{{ selectedSort.sort }}</span>
@@ -22,7 +22,7 @@
             class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
           >
           <ChevronDownIcon
-              :class="['# Regional Number' === selectedSort.sort ? 'text-gray-400' : 'text-white']"
+              :class="['# Regional' === selectedSort.sort ? 'text-gray-400' : '']"
               class="h-5 w-5"
               aria-hidden="true"
             />
@@ -42,7 +42,7 @@
             >
               <li
                 :class="[
-                  active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
+                  active ? 'bg-amber-100 text-purple-600' : 'text-gray-900',
                   'relative cursor-pointer select-none py-2 pl-10 pr-4',
                 ]"
               >
@@ -55,7 +55,7 @@
                 >
                 <span
                   v-if="selected"
-                  class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
+                  class="absolute inset-y-0 left-0 flex items-center pl-3 text-purple-600"
                 >
                   <CheckIcon class="h-5 w-5" aria-hidden="true" />
                 </span>
@@ -74,16 +74,16 @@ import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headless
 import { CheckIcon, ChevronDownIcon } from '@heroicons/vue/20/solid'
 
 const sorts = [
-  { sort: '# Regional Number' },
-  { sort: '# National Number' },
-  { sort: 'Name EN' },
-  { sort: 'Name FR' },
-  { sort: 'Hp' },
-  { sort: 'Attack' },
+  { sort: '# Regional' },
+  { sort: '# National' },
+  { sort: 'Nom EN' },
+  { sort: 'Nom FR' },
+  { sort: 'HP' },
+  { sort: 'Attaque' },
   { sort: 'Defense' },
-  { sort: 'Special Attack' },
-  { sort: 'Special Defense' },
-  { sort: 'Speed' },
+  { sort: 'Attaque Special' },
+  { sort: 'Defense Special' },
+  { sort: 'Vitesse' },
 ]
 const selectedSort = ref(sorts[0])
 

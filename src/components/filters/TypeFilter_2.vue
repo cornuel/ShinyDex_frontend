@@ -1,35 +1,38 @@
 <template>
-  <div class="w-40">
+  <div class="min-w-[10rem]">
     <Listbox v-model="selectedType">
       <div class="relative">
         <ListboxButton
-          :class="{
-              'bg-white border-0 text-gray-800 ': selectedType.type === 'Tous les types',
-              'bg-green-400 border-green-200 text-white': selectedType.type === 'Plante',
-              'bg-red-500 border-red-300 text-white': selectedType.type === 'Feu',
-              'bg-blue-500 border-blue-300 text-white': selectedType.type === 'Eau',
-              'bg-orange-400 border-orange-200 text-white': selectedType.type === 'Combat',
-              'bg-indigo-900 border-indigo-500 text-white': selectedType.type === 'Spectre',
-              'bg-gray-400 border-gray-200 text-white': selectedType.type === 'Normal',
-              'bg-insecte border-lime-200 text-white': selectedType.type === 'Insecte',
-              'bg-slate-400 border-slate-200 text-white': selectedType.type === 'Acier',
-              'bg-blue-300 border-blue-100 text-white': selectedType.type === 'Vol',
-              'bg-indigo-600 border-indigo-400 text-white': selectedType.type === 'Dragon',
-              'bg-yellow-300 border-yellow-100 text-white': selectedType.type === 'Electrik',
-              'bg-pink-400 border-pink-200 text-white': selectedType.type === 'Fee',
-              'bg-cyan-300 border-cyan-100 text-white': selectedType.type === 'Glace',
-              'bg-purple-400 border-purple-200 text-white': selectedType.type === 'Poison',
-              'bg-rose-400 border-rose-200 text-white': selectedType.type === 'Psy',
-              'bg-yellow-600 border-yellow-400 text-white': selectedType.type === 'Roche',
-              'bg-yellow-700 border-yellow-500 text-white': selectedType.type === 'Sol',
-              'bg-slate-800 border-slate-400 text-white': selectedType.type === 'Tenebres',
-          }"
-          class="relative w-full cursor-default rounded-lg py-2 pl-3 pr-10 text-left shadow-md 
+          class="relative w-full cursor-pointer rounded-lg py-1.5 pl-3 pr-10 text-left shadow-md 
           focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white 
           focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 
-          sm:text-sm border-4 overflow-y-hidden transition duration-200 ease-in-out"
+          sm:text-base sm:font-bold border-2 overflow-y-hidden transition duration-200 ease-in-out"
+          :class="{
+              'bg-white border-0 text-gray-800 ': selectedType.type === 'Tous les types',
+              'bg-plante border-green-400 text-white': selectedType.type === 'Plante',
+              'bg-feu border-red-300 text-white': selectedType.type === 'Feu',
+              'bg-eau border-blue-300 text-white': selectedType.type === 'Eau',
+              'bg-combat border-orange-200 text-white': selectedType.type === 'Combat',
+              'bg-spectre border-fuchsia-700 text-white': selectedType.type === 'Spectre',
+              'bg-normal border-gray-200 text-white': selectedType.type === 'Normal',
+              'bg-insecte border-lime-200 text-white': selectedType.type === 'Insecte',
+              'bg-acier border-slate-200 text-white': selectedType.type === 'Acier',
+              'bg-vol border-blue-100 text-white': selectedType.type === 'Vol',
+              'bg-dragon border-indigo-400 text-white': selectedType.type === 'Dragon',
+              'bg-electrik border-yellow-100 text-white': selectedType.type === 'Electrik',
+              'bg-fee border-pink-200 text-white': selectedType.type === 'Fee',
+              'bg-glace border-cyan-100 text-white': selectedType.type === 'Glace',
+              'bg-poison border-purple-200 text-white': selectedType.type === 'Poison',
+              'bg-psy border-rose-200 text-white': selectedType.type === 'Psy',
+              'bg-roche border-stone-300 text-white': selectedType.type === 'Roche',
+              'bg-sol border-stone-400 text-white': selectedType.type === 'Sol',
+              'bg-tenebres border-slate-400 text-white': selectedType.type === 'Tenebres',
+          }"
         >
-          <span class="block truncate">{{ selectedType.type === 'Tous les types' ? 'Type 2' : selectedType.type }}</span>
+          <div class="flex">
+          <img v-if="selectedType.type !== 'Tous les types'" :src="type_icon" alt="Pokemon Type 2" class="-ml-1.5 w-6 h-6">
+          <span class="block truncate">{{ selectedType.type === 'Tous les types' ? 'Type 2' : selectedType.type.toUpperCase() }}</span>
+          </div>
           <span
             class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
           >
@@ -46,14 +49,14 @@
           <ListboxOption v-on:click="handleClick" v-slot="{ active, selected }" v-for="person in allTypes"
             :key="person.type" :value="person" as="template">
             <li :class="[
-              active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
+              active ? 'bg-amber-100 text-purple-600' : 'text-gray-900',
               'relative cursor-pointer select-none py-2 pl-10 pr-4',
             ]">
               <span :class="[
                 selected ? 'font-medium' : 'font-normal',
                 'block truncate',
               ]">{{ person.type }}</span>
-              <span v-if="selected" class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+              <span v-if="selected" class="absolute inset-y-0 left-0 flex items-center pl-3 text-purple-600">
                 <CheckIcon class="h-5 w-5" aria-hidden="true" />
               </span>
             </li>
@@ -116,6 +119,8 @@ export default defineComponent({
 
     const selectedType = ref(allTypes.value[0])
 
+    const type_icon = computed(() => require(`@/assets/icons/${selectedType.value.type.toLowerCase()}.svg`))
+
     const handleClick = () => {
       emit('filterType_2', selectedType.value.type)
     }
@@ -123,7 +128,8 @@ export default defineComponent({
     return {
       allTypes,
       selectedType,
-      handleClick
+      handleClick,
+      type_icon
     }
   }
 })

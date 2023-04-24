@@ -3,14 +3,21 @@
     <!-- Leftside navigation bar -->
     <!-- <NavBar /> -->
     <!-- Rightside content -->
-    <div class="z-40 w-full md:w-[70rem] h-20 flex mx-auto inset-x-0 fixed p-5 rounded-lg justify-center items-center md:mt-10 gap-2 shadow-md border
-            backdrop-blur-lg border-gray-300 font-nunito whitespace-nowrap">
-      <div v-if="!isLoading" class="mr-5">
+    <div v-if="!isMobile">
+      <img src="@/assets/pokeball_bg_2.svg" alt="pokeball" class="fixed -ml-96 -mt-96 max-w-[96rem]">
+    </div>
+    <div class="z-40 w-full sm:w-fit h-fit sm:h-20 grid grid-cols-2 sm:flex mx-auto sm:inset-x-0 sm:fixed p-2 sm:p-5 rounded-lg justify-center items-center mt-1 sm:mt-10 gap-2 sm:shadow-md 
+        sm:border-2 sm:border-purple-400 sm:backdrop-blur-lg font-nunito whitespace-nowrap align-middle">
+      <!-- <div class="flex items-center mt-1">
+        <img class="w-32 mb-2" src="@/assets/shinydex.png" alt="" />
+      </div> -->
+      <div v-if="!isLoading" class="sm:w-auto flex rounded-xl justify-center shadow-md cursor-default bg-black bg-opacity-20 px-4 py-1.5 text-base font-bold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+        <img src="@/assets/pokeball.svg" alt="pokeball" class="w-5">
         {{ sumOfOwnedPokemon }} / {{ sumOfAllPokemon }}
       </div>
       <OwnFilter @ownFilter="ownFilter" />
       <TypeFilter_1 @filterType_1="filterType_1" />
-      <div v-if="apiType_1">
+      <div v-if="apiType_1" class="z-[56]">
         <TypeFilter_2 :typeList="list_type_2" @filterType_2="filterType_2" />
       </div>
       <SortList @filterSort="filterSort" />
@@ -20,7 +27,7 @@
 
     <div v-if="!isLoading" class="cards-container">
       <div
-        class="z-0 p-5 sm:p-10 md:p-28 left-44 grid bg-gray-100 grid-cols-2 mt-10
+        class="z-0 p-2 sm:p-10 md:p-28 left-44 grid bg-gray-100 grid-cols-2 sm:mt-10
                                 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-2 sm:gap-5 scrollbar-gutter-stable">
         <PkmnCard v-for="(pkmn, i) in data" :key="i" :pkmn="pkmn" :backend="backend" :apiUrl="apiUrl"
           :postShinyData_endpoint="postShinyData_endpoint" :userPkmnList="userPkmnList"
@@ -28,8 +35,8 @@
       </div>
     </div>
     <div v-else>
-      <div class="z-0 p-10 md:p-28 left-44 grid bg-gray-100 grid-cols-1 mt-10
-                              sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-5">
+      <div class="z-0 p-2 sm:p-10 md:p-28 left-44 grid bg-gray-100 grid-cols-2 sm:mt-10
+                              sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-2 sm:gap-5">
         <PkmnCardSkeleton v-for="i in 36" :key="i" />
       </div>
     </div>
@@ -71,7 +78,13 @@ export default {
       this.apiUrl + this.getUserPkmnList,
       this.apiUrl + this.getSumOfOwnedPokemon,
       this.apiUrl + this.getSumOfAllPokemon)
-    document.title = "ShinyDex [ " + this.userStore.getUser + ' : ✨' + this.sumOfOwnedPokemon + " ]";
+    document.title = "ShinyDex [  ✨ " + this.sumOfOwnedPokemon + " ]";
+    // check if screen is mobile size on mount
+    this.isMobile = window.innerWidth < 768;
+    // update isMobile when screen is resized
+    window.addEventListener('resize', () => {
+      this.isMobile = window.innerWidth < 768;
+    });
   },
 
   setup() {
@@ -107,6 +120,7 @@ export default {
     rawSortOwned: '',
     sortOwned: '',
     isLoading: true,
+    isMobile: false,
   }),
 
   methods: {
@@ -119,7 +133,7 @@ export default {
         this.sumOfOwnedPokemon -= 1;
       }
 
-      document.title = "ShinyDex [ " + this.userStore.getUser + ' : ✨' + this.sumOfOwnedPokemon + " ]";
+      document.title = "ShinyDex [  ✨ " + this.sumOfOwnedPokemon + " ]";
     },
 
     async getApiData(parameters, url) {
@@ -211,13 +225,13 @@ export default {
       this.rawOwned = rawOwned;
       // console.log(this.rawOwned)
 
-      if (rawOwned == 'All') {
+      if (rawOwned == 'Tous') {
         this.sortOwned = '';
       }
-      else if (rawOwned == 'Owned') {
+      else if (rawOwned == 'Obtenus') {
         this.sortOwned = 'owned';
       }
-      else if (rawOwned == 'Not Owned') {
+      else if (rawOwned == 'Non Obtenus') {
         this.sortOwned = 'not_owned';
       }
 
@@ -276,7 +290,7 @@ export default {
     orderSort(rawType) {
       this.rawType = rawType;
 
-      if (this.rawType == 'DESCENDING ↓') {
+      if (this.rawType == 'DESC') {
         this.apiOrder = 'desc';
       }
       else {
@@ -291,34 +305,34 @@ export default {
       this.rawSort = rawSort;
       // console.log(this.rawSort)
 
-      if (this.rawSort == '# Regional Number') {
+      if (this.rawSort == '# Regional') {
         this.apiSort = 'regional_number';
       }
-      else if (this.rawSort == '# National Number') {
+      else if (this.rawSort == '# National') {
         this.apiSort = 'national_number'
       }
-      else if (this.rawSort == 'Hp') {
+      else if (this.rawSort == 'HP') {
         this.apiSort = 'stat_hp'
       }
-      else if (this.rawSort == 'Name EN') {
+      else if (this.rawSort == 'Nom EN') {
         this.apiSort = 'name_en'
       }
-      else if (this.rawSort == 'Name FR') {
+      else if (this.rawSort == 'Nom FR') {
         this.apiSort = 'name_fr'
       }
-      else if (this.rawSort == 'Attack') {
+      else if (this.rawSort == 'Attaque') {
         this.apiSort = 'stat_atq'
       }
       else if (this.rawSort == 'Defense') {
         this.apiSort = 'stat_def'
       }
-      else if (this.rawSort == 'Special Attack') {
+      else if (this.rawSort == 'Attaque Special') {
         this.apiSort = 'stat_spa'
       }
-      else if (this.rawSort == 'Special Defense') {
+      else if (this.rawSort == 'Defense Special') {
         this.apiSort = 'stat_spd'
       }
-      else if (this.rawSort == 'Speed') {
+      else if (this.rawSort == 'Vitesse') {
         this.apiSort = 'stat_spe'
       }
 

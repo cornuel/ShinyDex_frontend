@@ -1,17 +1,17 @@
 <template>
-  <div class="w-44">
+  <div class="sm:w-28 w-full z-[50]">
     <Listbox v-model="selectedSort">
       <div class="relative">
         <ListboxButton
-        :class="['ASCENDING ↑' === selectedSort.sort ? 'bg-white' : 'border-4 border-amber-500 bg-amber-100 text-amber-900 font-medium']"
-          class="relative w-full cursor-default rounded-lg py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+        :class="['ASC' === selectedSort.sort ? 'bg-white' : 'border-2 border-purple-500 bg-amber-100 text-purple-600 font-medium']"
+          class="relative w-full cursor-pointer rounded-lg py-1.5 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-base sm:font-bold"
         >
           <span class="block truncate">{{ selectedSort.sort }}</span>
           <span
             class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
           >
           <ChevronDownIcon
-            :class="['ASCENDING ↑' === selectedSort.sort ? 'text-gray-400' : 'text-amber-600']"
+            :class="['ASC' === selectedSort.sort ? 'text-gray-400' : 'text-purple-600']"
               class="h-5 w-5"
               aria-hidden="true"
             />
@@ -31,7 +31,7 @@
             >
               <li
                 :class="[
-                  active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
+                  active ? 'bg-amber-100 text-purple-600' : 'text-gray-900',
                   'relative cursor-pointer select-none py-2 pl-10 pr-4',
                 ]"
               >
@@ -44,7 +44,7 @@
                 >
                 <span
                   v-if="selected"
-                  class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
+                  class="absolute inset-y-0 left-0 flex items-center pl-3 text-purple-600"
                 >
                   <CheckIcon class="h-5 w-5" aria-hidden="true" />
                 </span>
@@ -63,8 +63,8 @@ import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headless
 import { CheckIcon, ChevronDownIcon } from '@heroicons/vue/20/solid'
 
 const sorts = [
-  { sort: 'ASCENDING ↑' },
-  { sort: 'DESCENDING ↓' },
+  { sort: 'ASC' },
+  { sort: 'DESC' },
 ]
 const selectedSort = ref(sorts[0])
 

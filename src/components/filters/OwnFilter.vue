@@ -1,17 +1,17 @@
 <template>
-  <div class="min-w-40 w-40 max-w-40">
+  <div class="sm:w-40 w-full z-[60]">
     <Listbox v-model="selectedType">
       <div class="relative">
         <ListboxButton
-        :class="['All' === selectedType.type ? 'bg-white' : 'border-4 border-amber-500 bg-amber-100 text-amber-900 font-medium']"
-          class="relative w-full cursor-default rounded-lg  py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+        :class="['Tous' === selectedType.type ? 'bg-white' : 'border-2 border-purple-400 bg-amber-100 text-purple-600 font-medium']"
+          class="relative w-full cursor-pointer rounded-lg  py-1.5 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-base sm:font-bold"
         >
           <span class="block truncate">{{ selectedType.type }}</span>
           <span
             class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
           >
             <ChevronDownIcon
-            :class="['All' === selectedType.type ? 'text-gray-400' : 'text-amber-600']"
+            :class="['Tous' === selectedType.type ? 'text-gray-400' : 'text-purple-500']"
               class="h-5 w-5"
               aria-hidden="true"
             />
@@ -31,7 +31,7 @@
             >
               <li
                 :class="[
-                  active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
+                  active ? 'bg-amber-100 text-purple-600' : 'text-gray-900',
                   'relative cursor-pointer select-none py-2 pl-10 pr-4',
                 ]"
               >
@@ -44,7 +44,7 @@
                 >
                 <span
                   v-if="selected"
-                  class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
+                  class="absolute inset-y-0 left-0 flex items-center pl-3 text-purple-400"
                 >
                   <CheckIcon class="h-5 w-5" aria-hidden="true" />
                 </span>
@@ -66,9 +66,9 @@ import { CheckIcon, ChevronDownIcon } from '@heroicons/vue/20/solid'
 // const userStore = useUserStore()
 
 const types = [
-  { type: 'All' },
-  { type: 'Owned' },
-  { type: 'Not Owned' }
+  { type: 'Tous' },
+  { type: 'Obtenus' },
+  { type: 'Non Obtenus' }
 ]
 const selectedType = ref(types[0])
 
