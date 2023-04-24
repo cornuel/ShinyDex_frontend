@@ -11,7 +11,7 @@
       <Transition name="fade" mode="out-in">
         <div v-if="showPokedexImg" class="post">
           <button
-            class="absolute top-4 right-4 p-2.5 rounded-full bg-[#f3f4f6] active:bg-slate-600 shadow-sm hover:shadow-red-500 ease-linear transition-all duration-150"
+            class="z-30 absolute top-4 right-4 p-2.5 rounded-full bg-[#f3f4f6] active:bg-slate-600 shadow-sm hover:shadow-red-500 ease-linear transition-all duration-150"
             @click.stop="confirmToggleFavorite(pkmn)"
           >
             <svg
