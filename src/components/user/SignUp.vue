@@ -13,9 +13,24 @@
           class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4"
           @submit="submitForm"
         >
-          <img class="mx-auto mb-2" src="@/assets/shinydex.png" alt="" />
+          <a
+            href="https://cornuel.github.io/ShinyDex"
+            class="flex items-center justify-center mb-4 sm:mb-0"
+          >
+            <img
+              src="@/assets/pokeball_bg.svg"
+              class="h-8 mr-3"
+              alt="Flowbite Logo"
+            />
+            <span
+              class="font-nunito self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+              >ShinyDex</span
+            >
+          </a>
           <div class="identity-input mb-4">
-            <label class="font-nunito block text-gray-700 text-sm font-bold mb-2">
+            <label
+              class="font-nunito block text-gray-700 text-sm font-bold mb-2"
+            >
               Email
             </label>
             <Field
@@ -52,8 +67,9 @@
           <ErrorMessage class="text-xs text-pink-600" name="password" />
           <div class="flex items-center justify-between">
             <button
-              class="font-nunito bg-themeYellow hover:bg-amber-200 text-gray-700 shadow-md border font-bold py-2 px-4 rounded focus:outline-1 focus:outline-purple-400 focus:shadow-outline"
-              type="submit">
+              class="font-nunito bg-themeYellow hover:bg-purple-400 hover:text-slate-50 text-gray-700 shadow-md font-bold py-2 px-4 rounded focus:outline-1 focus:outline-purple-400 focus:shadow-outline"
+              type="submit"
+            >
               Sign in
             </button>
             <a

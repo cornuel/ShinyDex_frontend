@@ -6,7 +6,7 @@
   >
     <div
       class="relative hover:shadow-lg items-stretch h-full rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl shadow-md"
-      :class="isFavorited ? 'bg-amber-100/80' : 'bg-white'"
+      :class="isFavorited ? 'bg-amber-100/90' : 'bg-white'"
     >
       <Transition name="fade" mode="out-in">
         <div v-if="showPokedexImg" class="post">

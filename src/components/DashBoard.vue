@@ -1,17 +1,17 @@
 <template>
-  <div v-if="this.userStore.user" class="dashboard scroll-smooth overflow-visible">
+  <div v-if="this.userStore.user" class="bg-[#f3f4f6] dashboard scroll-smooth overflow-visible">
     <!-- Leftside navigation bar -->
     <!-- <NavBar /> -->
     <!-- Rightside content -->
-    <!-- <div v-if="!isMobile">
-      <img src="@/assets/pokeball_bg_2.svg" alt="pokeball" class="fixed -ml-96 -mt-96 max-w-[96rem]">
-    </div> -->
+    <div>
+      <img src="@/assets/pokeball_bg_2.svg" alt="pokeball" class="fixed -ml-96 -mt-[20rem] sm:-mt-96 max-w-[96rem]">
+    </div>
     <div class="z-40 w-full lg:w-fit h-fit lg:h-20 grid grid-cols-2 lg:flex mx-auto lg:inset-x-0 lg:fixed p-2 lg:p-5 rounded-lg justify-center items-center mt-1 lg:mt-10 gap-2 lg:shadow-md 
         lg:border-2 lg:border-purple-400 lg:backdrop-blur-lg font-nunito whitespace-nowrap align-middle">
       <!-- <div class="flex items-center mt-1">
         <img class="w-32 mb-2" src="@/assets/shinydex.png" alt="" />
       </div> -->
-      <div class="sm:w-auto flex rounded-xl justify-center shadow-md cursor-default bg-black bg-opacity-20 px-4 py-1.5 text-base font-bold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+      <div class="z-[60] sm:w-auto flex rounded-xl justify-center shadow-md cursor-default bg-black bg-opacity-20 px-4 py-1.5 text-base font-bold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
         <img src="@/assets/pokeball.svg" alt="pokeball" class="w-5">
         <div v-if="!isFirstLoading">
           {{ sumOfOwnedPokemon }} / {{ sumOfAllPokemon }}
@@ -27,7 +27,7 @@
       <LogOutButton />
     </div>
 
-    <div v-if="!isLoading" class="cards-container">
+    <div v-if="!isLoading" class="cards-container h-full">
       <div
         class="z-0 p-2 lg:p-28 left-44 grid bg-gray-100 grid-cols-2 lg:mt-10
                                 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-2 sm:gap-5 scrollbar-gutter-stable">
@@ -43,6 +43,7 @@
       </div>
     </div>
   </div>
+  <FooterDashboard />
 </template>
 
 
@@ -58,6 +59,7 @@ import TypeFilter_2 from './filters/TypeFilter_2.vue';
 import SortList from './filters/SortList.vue';
 import OrderList from './filters/OrderList.vue';
 import LogOutButton from './LogOutButton.vue';
+import FooterDashboard from './FooterDashboard.vue';
 
 export default {
 
@@ -71,6 +73,7 @@ export default {
     SortList,
     OrderList,
     LogOutButton,
+    FooterDashboard
   },
 
   mounted() {
