@@ -131,16 +131,29 @@
             <button
               @click.stop="showStats = !showStats"
               class="z-10 cursor-pointer bg-slate-200 active:bg-slate-300 text-slate-600 text-sm p-2 h-8 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+              :class="isFavorited ? 'bg-slate-50 active:bg-slate-100' : 'bg-slate-200 active:bg-slate-300'"
               type="button"
             >
-              <font-awesome-icon icon="fa-solid fa-chart-column" />
-              <span v-if="!showStats"> Show </span>
-              <span v-else> Hide </span>
-              Stats
+              
+              <div v-if="!showStats"> 
+                <font-awesome-icon icon="fa-solid fa-chart-column" />
+                Voir les stats 
+              </div>
+              <div v-else class="flex"> 
+                <img src="@/assets/sparkles.svg" alt="shiny" class="h-4 w-4 mr-1 mt-0.5">
+                Voir le shiny 
+              </div>
             </button>
           </div>
-          <div class="p-2 -mt-4">
+          <div class=" p-2 -mt-4 h-full flex justify-center items-center">
             <Bar v-if="showStats" :data="computedData" :options="options" />
+            <img
+                v-if="!showStats"
+                class="border-slate-50 max-h-28 max-w-[8rem] mt-5"
+                :src="pkmn.shiny_img"
+                alt="logo"
+                loading="lazy"
+              />
           </div>
         </div>
       </Transition>
@@ -264,7 +277,7 @@
           Swal.fire({
             title: "Es-tu sur?",
             text: `${pkmn.name_fr} est sur le point d'être supprimer de ta liste de shiny ..`,
-            imageUrl: `${pkmn.pokedex_img}`,
+            imageUrl: `${pkmn.shiny_img}`,
             showCancelButton: true,
             confirmButtonText: "Oui",
             cancelButtonText: "Non, annule!",
@@ -295,6 +308,7 @@
             datalabels: {
               font: {
                 size: 14,
+                family: "'Nunito', sans-serif",
               },
               color: [
                 "rgb(255, 99, 132)",
@@ -377,6 +391,14 @@
               },
             },
           ],
+          options: {
+            responsive: true,
+            plugins: {
+              font: {
+                family: "'Nunito', sans-serif",
+              },
+            },
+          },
         };
       },
     },

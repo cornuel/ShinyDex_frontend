@@ -1,9 +1,9 @@
 <template>
-  <div class="sm:w-40 w-full z-[50]">
+  <div class="lg:w-40 w-full z-[50]">
     <Listbox v-model="selectedSort">
       <div class="relative">
         <ListboxButton
-        class="relative w-full cursor-pointer rounded-lg py-1.5 pl-3 pr-10 text-left shadow-md"
+        class="relative w-full cursor-pointer rounded-lg py-1.5 pl-3 pr-10 text-left font-bold shadow-md"
         :class="{
               'bg-white border-0 text-gray-800': selectedSort.sort === '# Regional',
               'bg-hp border-2 border-red-200 text-white': selectedSort.sort === 'HP',
@@ -30,7 +30,7 @@
         </ListboxButton>
 
           <ListboxOptions
-            class="absolute mt-1 max-h-96 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+            class="max-h-48 md:max-h-fit absolute mt-1 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
           >
             <ListboxOption
               v-on:click="handleClick"

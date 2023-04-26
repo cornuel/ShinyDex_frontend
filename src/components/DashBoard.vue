@@ -3,17 +3,19 @@
     <!-- Leftside navigation bar -->
     <!-- <NavBar /> -->
     <!-- Rightside content -->
-    <div v-if="!isMobile">
+    <!-- <div v-if="!isMobile">
       <img src="@/assets/pokeball_bg_2.svg" alt="pokeball" class="fixed -ml-96 -mt-96 max-w-[96rem]">
-    </div>
-    <div class="z-40 w-full sm:w-fit h-fit sm:h-20 grid grid-cols-2 sm:flex mx-auto sm:inset-x-0 sm:fixed p-2 sm:p-5 rounded-lg justify-center items-center mt-1 sm:mt-10 gap-2 sm:shadow-md 
-        sm:border-2 sm:border-purple-400 sm:backdrop-blur-lg font-nunito whitespace-nowrap align-middle">
+    </div> -->
+    <div class="z-40 w-full lg:w-fit h-fit lg:h-20 grid grid-cols-2 lg:flex mx-auto lg:inset-x-0 lg:fixed p-2 lg:p-5 rounded-lg justify-center items-center mt-1 lg:mt-10 gap-2 lg:shadow-md 
+        lg:border-2 lg:border-purple-400 lg:backdrop-blur-lg font-nunito whitespace-nowrap align-middle">
       <!-- <div class="flex items-center mt-1">
         <img class="w-32 mb-2" src="@/assets/shinydex.png" alt="" />
       </div> -->
-      <div v-if="!isLoading" class="sm:w-auto flex rounded-xl justify-center shadow-md cursor-default bg-black bg-opacity-20 px-4 py-1.5 text-base font-bold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+      <div class="sm:w-auto flex rounded-xl justify-center shadow-md cursor-default bg-black bg-opacity-20 px-4 py-1.5 text-base font-bold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
         <img src="@/assets/pokeball.svg" alt="pokeball" class="w-5">
-        {{ sumOfOwnedPokemon }} / {{ sumOfAllPokemon }}
+        <div v-if="!isFirstLoading">
+          {{ sumOfOwnedPokemon }} / {{ sumOfAllPokemon }}
+        </div>
       </div>
       <OwnFilter @ownFilter="ownFilter" />
       <TypeFilter_1 @filterType_1="filterType_1" />
@@ -27,7 +29,7 @@
 
     <div v-if="!isLoading" class="cards-container">
       <div
-        class="z-0 p-2 sm:p-10 md:p-28 left-44 grid bg-gray-100 grid-cols-2 sm:mt-10
+        class="z-0 p-2 lg:p-28 left-44 grid bg-gray-100 grid-cols-2 lg:mt-10
                                 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-2 sm:gap-5 scrollbar-gutter-stable">
         <PkmnCard v-for="(pkmn, i) in data" :key="i" :pkmn="pkmn" :backend="backend" :apiUrl="apiUrl"
           :postShinyData_endpoint="postShinyData_endpoint" :userPkmnList="userPkmnList"
@@ -35,7 +37,7 @@
       </div>
     </div>
     <div v-else>
-      <div class="z-0 p-2 sm:p-10 md:p-28 left-44 grid bg-gray-100 grid-cols-2 sm:mt-10
+      <div class="z-0 p-2 lg:p-28 left-44 grid bg-gray-100 grid-cols-2 lg:mt-10
                               sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-2 sm:gap-5">
         <PkmnCardSkeleton v-for="i in 36" :key="i" />
       </div>
@@ -74,17 +76,17 @@ export default {
   mounted() {
     this.isLoading = true
     this.fetchMultipleUrls({},
-      this.apiUrl + this.getData,
-      this.apiUrl + this.getUserPkmnList,
-      this.apiUrl + this.getSumOfOwnedPokemon,
-      this.apiUrl + this.getSumOfAllPokemon)
-    document.title = "ShinyDex [  ✨ " + this.sumOfOwnedPokemon + " ]";
+    this.apiUrl + this.getData,
+    this.apiUrl + this.getUserPkmnList,
+    this.apiUrl + this.getSumOfOwnedPokemon,
+    this.apiUrl + this.getSumOfAllPokemon)
+    this.isFirstLoading = false
     // check if screen is mobile size on mount
-    this.isMobile = window.innerWidth < 768;
-    // update isMobile when screen is resized
-    window.addEventListener('resize', () => {
-      this.isMobile = window.innerWidth < 768;
-    });
+    // this.isMobile = window.innerWidth < 768;
+    // // update isMobile when screen is resized
+    // window.addEventListener('resize', () => {
+    //   this.isMobile = window.innerWidth < 768;
+    // });
   },
 
   setup() {
@@ -120,6 +122,7 @@ export default {
     rawSortOwned: '',
     sortOwned: '',
     isLoading: true,
+    isFirstLoading: true,
     isMobile: false,
   }),
 
@@ -133,7 +136,7 @@ export default {
         this.sumOfOwnedPokemon -= 1;
       }
 
-      document.title = "ShinyDex [  ✨ " + this.sumOfOwnedPokemon + " ]";
+      document.title = "ShinyDex ✨" + this.sumOfOwnedPokemon;
     },
 
     async getApiData(parameters, url) {
@@ -170,6 +173,8 @@ export default {
           this.sumOfOwnedPokemon = responses[2];
           this.sumOfAllPokemon = responses[3];
         }
+
+        document.title = "ShinyDex ✨" + this.sumOfOwnedPokemon;
 
         this.isLoading = false;
       } catch (error) {

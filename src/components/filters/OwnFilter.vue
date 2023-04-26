@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:w-40 w-full z-[60]">
+  <div class="lg:w-40 w-full z-[60]">
     <Listbox v-model="selectedType">
       <div class="relative">
         <ListboxButton

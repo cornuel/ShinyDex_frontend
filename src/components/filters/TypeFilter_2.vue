@@ -45,7 +45,7 @@
         </ListboxButton>
 
         <ListboxOptions
-          class="overflow-y-hidden absolute mt-1 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          class="max-h-48 md:max-h-fit absolute mt-1 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
           <ListboxOption v-on:click="handleClick" v-slot="{ active, selected }" v-for="person in allTypes"
             :key="person.type" :value="person" as="template">
             <li :class="[
