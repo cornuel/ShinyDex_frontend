@@ -4,7 +4,7 @@
     <!-- <NavBar /> -->
     <!-- Rightside content -->
     <div>
-      <img src="@/assets/pokeball_bg_2.svg" alt="pokeball" class="fixed -ml-96 -mt-[20rem] sm:-mt-96 max-w-[96rem]">
+      <img src="@/assets/pokeball_bg_2.svg" alt="pokeball" class="-z-0 fixed -ml-96 -mt-[20rem] sm:-mt-96 max-w-[96rem]">
     </div>
     <div class="z-40 w-full lg:w-fit h-fit lg:h-20 grid grid-cols-2 lg:flex mx-auto lg:inset-x-0 lg:fixed p-2 lg:p-5 rounded-lg justify-center items-center mt-1 lg:mt-10 gap-2 lg:shadow-md 
         lg:border-2 lg:border-purple-400 lg:backdrop-blur-lg font-nunito whitespace-nowrap align-middle">

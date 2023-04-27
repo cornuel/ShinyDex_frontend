@@ -37,19 +37,19 @@
                         />
                     </p>
                 </div>
-                <div class="flex align-items justify-center px-5 text-gray-50 mb-2 gap-3">
-                        <AnimatedPlaceHolder 
-                            height="25px" 
-                            width="35%" 
-                            borderRadius="9999px" 
-                        />
-                        <AnimatedPlaceHolder 
-                            height="25px" 
-                            width="35%" 
-                            borderRadius="9999px" 
-                        />
-                </div>
             </div>
+        </div>
+        <div class="-mt-4 relative flex align-items justify-center px-5 text-gray-50 mb-2 gap-3">
+                <AnimatedPlaceHolder 
+                    height="25px" 
+                    width="35%" 
+                    borderRadius="9999px" 
+                />
+                <AnimatedPlaceHolder 
+                    height="25px" 
+                    width="35%" 
+                    borderRadius="9999px" 
+                />
         </div>
     </div>
 </template>

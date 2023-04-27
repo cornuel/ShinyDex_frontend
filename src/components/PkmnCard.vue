@@ -1,12 +1,12 @@
 <template>
   <div
-    class="p-0.5 rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl"
+    class="p-0.5 pb-2 rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl"
     @click="showPokedexImg = !showPokedexImg"
     :class="{ 'cursor-pointer': showPokedexImg }"
   >
     <div
       class="relative hover:shadow-lg items-stretch h-full rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl shadow-md"
-      :class="isFavorited ? 'bg-amber-100/90' : 'bg-white'"
+      :class="isFavorited & showPokedexImg ? 'bg-amber-100/90' : 'bg-white'"
     >
       <Transition name="fade" mode="out-in">
         <div v-if="showPokedexImg" class="post">
@@ -40,7 +40,7 @@
             />
           </div>
           <div>
-            <div class="py-1">
+            <div class="py-0.5">
               <div class="flex justify-between -mb-5">
                 <div
                   class="font-rubik tracking-wide italic mb-1 text-gray-700 drop-shadow-sm text-xs sm:text-sm shadow-gray-200 mx-3 sm:mx-5"
@@ -64,43 +64,6 @@
               >
                 {{ pkmn.name_en }}
               </p>
-            </div>
-            <div
-              v-if="showPokedexImg"
-              class="flex items-center justify-center px-5 text-gray-50"
-            >
-              <span
-                v-if="pkmn.type_1 != 'NA'"
-                :class="`bg-${pkmn.type_1}`"
-                class="flex rounded-full px-4 sm:px-4 align-items justify-center text-xs sm:text-sm mb-2 shadow-md border-2 border-white"
-              >
-                <img
-                  :src="type_1_icon"
-                  alt="Pokemon Type 1"
-                  class="-ml-1.5 w-6 h-6"
-                />
-                <div
-                  class="h-6 flex items-center text-center font-rubik uppercase"
-                >
-                  {{ capitalized(pkmn.type_1) }}
-                </div>
-              </span>
-              <span
-                v-if="pkmn.type_2 != 'NA'"
-                :class="`bg-${pkmn.type_2}`"
-                class="flex rounded-full px-4 sm:px-4 align-items justify-center text-xs sm:text-sm mb-2 shadow-md border-2 border-white"
-              >
-                <img
-                  :src="type_2_icon"
-                  alt="Pokemon Type 2"
-                  class="-ml-1.5 w-6 h-6"
-                />
-                <div
-                  class="h-6 flex items-center text-center font-rubik uppercase"
-                >
-                  {{ capitalized(pkmn.type_2) }}
-                </div>
-              </span>
             </div>
           </div>
         </div>
@@ -131,32 +94,63 @@
             <button
               @click.stop="showStats = !showStats"
               class="z-10 cursor-pointer bg-slate-200 active:bg-slate-300 text-slate-600 text-sm p-2 h-8 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
-              :class="isFavorited ? 'bg-slate-50 active:bg-slate-100' : 'bg-slate-200 active:bg-slate-300'"
               type="button"
             >
-              
-              <div v-if="!showStats"> 
+              <div v-if="!showStats">
                 <font-awesome-icon icon="fa-solid fa-chart-column" />
-                Voir les stats 
+                Voir les stats
               </div>
-              <div v-else class="flex"> 
-                <img src="@/assets/sparkles.svg" alt="shiny" class="h-4 w-4 mr-1 mt-0.5">
-                Voir le shiny 
+              <div v-else class="flex">
+                <img
+                  src="@/assets/sparkles.svg"
+                  alt="shiny"
+                  class="h-4 w-4 mr-1 mt-0.5"
+                />
+                Voir le shiny
               </div>
             </button>
           </div>
-          <div class=" p-2 -mt-4 h-full flex justify-center items-center">
-            <Bar v-if="showStats" :data="computedData" :options="options" />
+          <div class="p-2 flex justify-center align-middle items-center">
+            <Bar
+              class="max-h-28"
+              v-if="showStats"
+              :data="computedData"
+              :options="options"
+            />
             <img
-                v-if="!showStats"
-                class="border-slate-50 max-h-28 max-w-[8rem] mt-5"
-                :src="pkmn.shiny_img"
-                alt="logo"
-                loading="lazy"
-              />
+              v-if="!showStats"
+              class="border-slate-50 max-h-[6rem] max-w-[10rem]"
+              :src="pkmn.shiny_img"
+              alt="logo"
+              loading="lazy"
+            />
           </div>
         </div>
       </Transition>
+    </div>
+    <div
+      class="-mt-4 relative flex items-center justify-center px-5 text-gray-50"
+    >
+      <span
+        v-if="pkmn.type_1 != 'NA'"
+        :class="`bg-${pkmn.type_1}`"
+        class="flex rounded-full px-4 sm:px-4 align-items justify-center text-xs sm:text-sm mb-2 shadow-md border-2 border-white"
+      >
+        <img :src="type_1_icon" alt="Pokemon Type 1" class="-ml-1.5 w-6 h-6" />
+        <div class="h-6 flex items-center text-center font-rubik uppercase">
+          {{ capitalized(pkmn.type_1) }}
+        </div>
+      </span>
+      <span
+        v-if="pkmn.type_2 != 'NA'"
+        :class="`bg-${pkmn.type_2}`"
+        class="flex rounded-full px-4 sm:px-4 align-items justify-center text-xs sm:text-sm mb-2 shadow-md border-2 border-white"
+      >
+        <img :src="type_2_icon" alt="Pokemon Type 2" class="-ml-1.5 w-6 h-6" />
+        <div class="h-6 flex items-center text-center font-rubik uppercase">
+          {{ capitalized(pkmn.type_2) }}
+        </div>
+      </span>
     </div>
   </div>
 </template>
@@ -408,7 +402,7 @@
 <style>
   .fade-enter-active,
   .fade-leave-active {
-    transition: opacity 0.2s ease;
+    transition: opacity 0.1s ease;
   }
 
   .fade-enter-from,
