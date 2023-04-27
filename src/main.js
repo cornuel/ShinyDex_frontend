@@ -10,6 +10,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faStar as solidStar, faChartColumn as solidChart} from '@fortawesome/free-solid-svg-icons'
 import { faStar as regularStar} from '@fortawesome/free-regular-svg-icons'
+import { faArrowUpLong as arrowUp} from '@fortawesome/free-solid-svg-icons'
+import { faArrowDownLong as arrowDown} from '@fortawesome/free-solid-svg-icons'
 
 ///Notiwind
 import Notifications from 'notiwind'
@@ -23,7 +25,7 @@ import 'flowbite';
 import './index.css'
 
 /* add icons to the library */
-library.add(solidStar, solidChart, regularStar)
+library.add(solidStar, solidChart, regularStar, arrowUp, arrowDown)
 
 // 1. Define some routes
 // Each route should map to a component.

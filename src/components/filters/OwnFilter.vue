@@ -3,8 +3,8 @@
     <Listbox v-model="selectedType">
       <div class="relative">
         <ListboxButton
-        :class="['Tous' === selectedType.type ? 'bg-white' : 'border-2 border-purple-400 bg-amber-100 text-purple-600 font-medium']"
-          class="relative w-full cursor-pointer rounded-lg  py-1.5 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-base sm:font-bold"
+        :class="['Tous' === selectedType.type ? 'bg-white' : 'border-2 border-purple-400 bg-amber-100 text-purple-600']"
+          class="relative w-full cursor-pointer rounded-lg  py-1.5 pl-3 pr-10 text-left font-bold shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-base sm:font-bold"
         >
           <span class="block truncate">{{ selectedType.type }}</span>
           <span

@@ -3,7 +3,7 @@
     <img
       src="@/assets/pokeball_bg_2.svg"
       alt="pokeball"
-      class="fixed -ml-3 h-screen w-screen"
+      class="fixed -ml-1.5 h-screen w-screen"
     />
   </div>
   <div class="z-40 sign-in h-screen">
@@ -40,7 +40,7 @@
               v-model="email"
               :rules="validateEmail"
             />
-            <ErrorMessage class="text-xs text-pink-600" name="email" />
+            <ErrorMessage class="text-xs text-purple-500" name="email" />
           </div>
           <!-- <div class="identity-input mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
@@ -64,16 +64,16 @@
             v-model="password"
             :rules="validatePassword"
           />
-          <ErrorMessage class="text-xs text-pink-600" name="password" />
+          <ErrorMessage class="text-xs text-purple-500" name="password" />
           <div class="flex items-center justify-between">
             <button
-              class="font-nunito bg-themeYellow hover:bg-purple-400 hover:text-slate-50 text-gray-700 shadow-md font-bold py-2 px-4 rounded focus:outline-1 focus:outline-purple-400 focus:shadow-outline"
+              class="font-nunito w-fit bg-themeYellow hover:bg-purple-400 hover:text-slate-50 text-gray-700 shadow-md font-bold py-2 px-4 rounded focus:outline-1 focus:outline-purple-400 focus:shadow-outline"
               type="submit"
             >
               Sign in
             </button>
             <a
-              class="font-nunito inline-block align-baseline font-bold text-sm text-purple-400 hover:text-amber-300"
+              class="font-nunito inline-block align-baseline font-bold text-sm text-purple-500 hover:text-amber-300"
               href="#log-in"
             >
               I have an account

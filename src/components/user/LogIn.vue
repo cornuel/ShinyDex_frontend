@@ -3,7 +3,7 @@
     <img
       src="@/assets/pokeball_bg_2.svg"
       alt="pokeball"
-      class="fixed -ml-3 h-screen w-screen"
+      class="fixed -ml-1.5 h-screen w-screen"
     />
   </div>
   <div class="z-40 log-in h-screen">
@@ -38,9 +38,9 @@
               type="email"
               name="email"
               v-model="email"
-              :rules="validateUsername"
+              :rules="validateEmail"
             />
-            <ErrorMessage class="text-xs text-pink-600" name="email" />
+            <ErrorMessage class="text-xs text-purple-500" name="email" />
           </div>
           <label class="font-nunito block text-gray-700 text-sm font-bold mb-2">
             Password
@@ -52,16 +52,16 @@
             v-model="password"
             :rules="validatePassword"
           />
-          <ErrorMessage class="text-xs text-pink-600" name="password" />
+          <ErrorMessage class="text-xs text-purple-500" name="password" />
           <div class="flex items-center justify-between">
             <button
-              class="font-nunito bg-themeYellow hover:bg-purple-400 hover:text-slate-50 text-gray-700 shadow-md font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              class="font-nunito w-fit bg-themeYellow hover:bg-purple-400 hover:text-slate-50 text-gray-700 shadow-md font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
               Log In
             </button>
             <a
-              class="font-nunito inline-block align-baseline font-bold text-sm text-purple-400 hover:text-amber-300"
+              class="font-nunito inline-block align-baseline font-bold text-sm text-purple-500 hover:text-amber-300"
               href="#sign-up"
             >
               Create an account
@@ -154,10 +154,19 @@
             }
           });
       },
-      validateUsername(value) {
+      validateEmail(value) {
+        // if the field is empty
         if (!value) {
           return "Email is required";
         }
+
+        // if the field is not a valid email
+        const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+        if (!regex.test(value)) {
+          return "This field must be a valid email";
+        }
+
+        // All is good
         return true;
       },
       validatePassword(value) {

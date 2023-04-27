@@ -263,6 +263,7 @@ export default {
 
       if (this.rawType_1 == 'Tous les types') {
         this.apiType_1 = '';
+        this.apiType_2 = '';
       }
       else {
         this.apiType_1 = this.rawType_1.toLowerCase();
@@ -292,7 +293,6 @@ export default {
       }
 
       this.fetchData(this.sortOwned, this.apiType_1, this.apiType_2, this.apiSort, this.apiOrder)
-
     },
 
     orderSort(rawType) {

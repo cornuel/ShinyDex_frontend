@@ -1,5 +1,5 @@
 <template>
-  <div class="lg:w-40 w-full z-[50]">
+  <div class="lg:w-44 w-full z-[40]">
     <Listbox v-model="selectedSort">
       <div class="relative">
         <ListboxButton
@@ -12,9 +12,7 @@
               'bg-spa border-yellow-100 border-2 text-white': selectedSort.sort === 'Attaque Special',
               'bg-spd border-blue-200 border-2 text-white': selectedSort.sort === 'Defense Special',
               'bg-spe border-purple-200 border-2 text-white': selectedSort.sort === 'Vitesse',
-              'bg-amber-100 border-2 border-purple-400 text-purple-600': selectedSort.sort === 'Nom EN',
-              'bg-amber-100 border-2 border-purple-400 text-purple-600': selectedSort.sort === 'Nom FR',
-              'bg-amber-100 border-2 border-purple-400 text-purple-600': selectedSort.sort === '# National',
+              'bg-amber-100 border-2 border-purple-400 text-purple-600': selectedSort.sort === '# National' || selectedSort.sort === 'Nom FR' || selectedSort.sort === 'Nom EN',
           }"
         >
           <span class="block truncate">{{ selectedSort.sort }}</span>

@@ -4,7 +4,7 @@
       <div class="relative">
         <ListboxButton
           class="relative w-full cursor-pointer rounded-lg py-1.5 pl-3 pr-10 text-left shadow-md 
-          sm:text-base sm:font-bold border-2 overflow-y-hidden transition duration-200 ease-in-out"
+          sm:text-base font-bold border-2 overflow-y-hidden transition duration-200 ease-in-out"
           :class="{
               'bg-white border-0 text-gray-800 ': selectedType.type === 'Tous les types',
               'bg-plante border-green-400 text-white': selectedType.type === 'Plante',
