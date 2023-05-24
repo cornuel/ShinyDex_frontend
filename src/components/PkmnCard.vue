@@ -5,13 +5,24 @@
     :class="{ 'cursor-pointer': showPokedexImg }"
   >
     <div
-      class="relative hover:shadow-lg items-stretch h-full rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl shadow-md"
-      :class="isFavorited & showPokedexImg ? 'bg-amber-100/90' : 'bg-white'"
+      class="relative items-stretch h-full rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl shadow-md"
+      :class="[
+        isFavorited && showPokedexImg
+          ? 'bg-amber-100 dark:bg-lightIndigo/70'
+          : 'bg-white dark:bg-indigo/70',
+        { 'dark:border dark:border-lavender': !showPokedexImg },
+        { 'dark:border dark:border-themeYellow/40': !isFavorited },
+      ]"
     >
       <Transition name="fade" mode="out-in">
         <div v-if="showPokedexImg" class="post">
           <button
-            class="z-30 absolute top-4 right-4 p-2.5 rounded-full bg-[#f3f4f6] active:bg-slate-600 shadow-sm hover:shadow-red-500 ease-linear transition-all duration-150"
+            class="z-30 absolute top-4 right-4 p-2.5 rounded-full bg-[#f3f4f6] dark:bg-themeYellow active:bg-slate-600 shadow-sm hover:shadow-red-500 ease-linear transition-all duration-150"
+            :class="
+                  isFavorited
+                    ? 'dark:bg-themeYellow bg-[#f3f4f6]'
+                    : 'dark:bg-[#f3f4f6] bg-[#f3f4f6]'
+                "
             @click.stop="confirmToggleFavorite(pkmn)"
           >
             <svg
@@ -32,8 +43,8 @@
           </button>
           <div>
             <img
-              class="w-full rounded-tl-md rounded-br-md rounded-tr-3xl border-b-2 border-slate-50"
-              :class="!isFavorited ? 'grayscale' : 'grayscale-0'"
+              class="w-full rounded-tl-md rounded-tr-3xl border-b-2 border-slate-50 dark:border-themeYellow"
+              :class="isFavorited ? 'grayscale-0 saturate-150' : 'grayscale'"
               :src="pkmn.pokedex_img"
               alt="logo"
               loading="lazy"
@@ -43,25 +54,45 @@
             <div class="py-0.5">
               <div class="flex justify-between -mb-5">
                 <div
-                  class="font-rubik tracking-wide italic mb-1 text-gray-700 drop-shadow-sm text-xs sm:text-sm shadow-gray-200 mx-3 sm:mx-5"
-                >
+                  class="font-rubik tracking-wide italic mb-1 text-gray-700 dark:text-themeYellow drop-shadow-sm text-xs sm:text-sm shadow-gray-200 mx-3 sm:mx-5"
+                  :class="
+                  isFavorited
+                    ? 'dark:text-lavender text-gray-700'
+                    : 'text-gray-500 dark:text-themeYellow/50'
+                "
+                  >
                   {{ pkmn.regional_number }}
                 </div>
                 <div
-                  class="font-rubik tracking-wide italic mb-1 text-gray-700 drop-shadow-sm text-xs sm:text-sm shadow-gray-200 mx-3 sm:mx-5"
-                >
+                  class="font-rubik tracking-wide italic mb-1 text-gray-700 dark:text-themeYellow drop-shadow-sm text-xs sm:text-sm shadow-gray-200 mx-3 sm:mx-5"
+                  :class="
+                  isFavorited
+                    ? 'dark:text-lavender text-gray-700'
+                    : 'text-gray-500 dark:text-themeYellow/50'
+                "
+                  >
                   {{ pkmn.national_number }}
                 </div>
               </div>
               <div
-                class="font-nunito font-semibold text-center mb-1 text-gray-700 shadow-slate-50"
+                class="font-nunito font-semibold text-center mb-1 shadow-slate-50"
+                :class="
+                  isFavorited
+                    ? 'dark:text-lavender text-gray-700'
+                    : 'text-gray-500 dark:text-themeYellow/50'
+                "
               >
                 {{ pkmn.name_fr }}
               </div>
               <p
                 v-if="showPokedexImg"
-                class="font-rubik tracking-wide italic text-gray-600 text-xs sm:text-sm text-center"
-              >
+                class="font-rubik tracking-wide italic text-xs sm:text-sm text-center"
+                :class="
+                  isFavorited
+                    ? 'text-gray-600 dark:text-themeYellow'
+                    : 'text-gray-500 dark:text-themeYellow/40'
+                "
+                >
                 {{ pkmn.name_en }}
               </p>
             </div>
@@ -71,42 +102,55 @@
           <div class="py-1">
             <div class="flex justify-between -mb-6">
               <div
-                class="font-rubik tracking-wide italic mb-1 text-gray-700 drop-shadow-sm text-sm shadow-gray-200 mx-5"
-              >
+                class="font-rubik tracking-wide italic mb-1 text-gray-700 dark:text-themeYellow drop-shadow-sm text-sm shadow-gray-200 mx-5"
+                :class="
+                  isFavorited
+                    ? 'dark:text-lavender text-gray-700'
+                    : 'text-gray-500 dark:text-themeYellow/50'
+                "
+                >
                 {{ pkmn.regional_number }}
               </div>
               <div
-                class="font-rubik tracking-wide italic mb-1 text-gray-700 drop-shadow-sm text-sm shadow-gray-200 mx-5"
-              >
+                class="font-rubik tracking-wide italic mb-1 text-gray-700 dark:text-themeYellow drop-shadow-sm text-sm shadow-gray-200 mx-5"
+                :class="
+                  isFavorited
+                    ? 'dark:text-lavender text-gray-700'
+                    : 'text-gray-500 dark:text-themeYellow/50'
+                "
+                >
                 {{ pkmn.national_number }}
               </div>
             </div>
             <div
-              class="font-nunito font-semibold text-center mb-1 text-gray-700"
-            >
+              class="font-nunito font-semibold text-center mb-1 dark:text-lavender text-gray-700"
+              :class="
+                  isFavorited
+                    ? 'dark:text-lavender text-gray-700'
+                    : 'text-gray-500 dark:text-themeYellow/50'
+                "
+              >
               {{ pkmn.name_fr }}
             </div>
             <p v-if="showPokedexImg" class="text-gray-700 text-sm text-center">
               {{ pkmn.name_en }}
             </p>
           </div>
-          <div class="flex justify-center">
+          <div class="flex justify-center rounded-full">
             <button
               @click.stop="showStats = !showStats"
-              class="z-10 cursor-pointer bg-slate-200 active:bg-slate-300 text-slate-600 text-sm p-2 h-8 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+              class="z-10 cursor-pointer dark:bg-themeYellow bg-slate-200 active:bg-slate-300 text-slate-600 text-sm p-2 h-8 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
               type="button"
             >
               <div v-if="!showStats">
                 <font-awesome-icon icon="fa-solid fa-chart-column" />
-                Voir les stats
               </div>
-              <div v-else class="flex">
+              <div v-else>
                 <img
                   src="@/assets/sparkles.svg"
                   alt="shiny"
-                  class="h-4 w-4 mr-1 mt-0.5"
+                  class="h-4 w-4 mt-0.5"
                 />
-                Voir le shiny
               </div>
             </button>
           </div>
@@ -119,7 +163,7 @@
             />
             <img
               v-if="!showStats"
-              class="border-slate-50 max-h-[6rem] max-w-[10rem]"
+              class="border-slate-50 dark:border-themeYellow max-h-[6rem] max-w-[10rem] saturate-150"
               :src="pkmn.shiny_img"
               alt="logo"
               loading="lazy"
@@ -130,11 +174,12 @@
     </div>
     <div
       class="-mt-4 relative flex items-center justify-center px-5 text-gray-50"
+      :class="isFavorited ? 'grayscale-0' : 'grayscale'"
     >
       <span
         v-if="pkmn.type_1 != 'NA'"
         :class="`bg-${pkmn.type_1}`"
-        class="flex rounded-full px-4 sm:px-4 align-items justify-center text-xs sm:text-sm mb-2 shadow-md border-2 border-white"
+        class="flex rounded-full px-4 sm:px-4 align-items justify-center text-xs sm:text-sm mb-2 shadow-md border-2 border-white dark:border-themeYellow/40"
       >
         <img :src="type_1_icon" alt="Pokemon Type 1" class="-ml-1.5 w-6 h-6" />
         <div class="h-6 flex items-center text-center font-rubik uppercase">
@@ -144,7 +189,7 @@
       <span
         v-if="pkmn.type_2 != 'NA'"
         :class="`bg-${pkmn.type_2}`"
-        class="flex rounded-full px-4 sm:px-4 align-items justify-center text-xs sm:text-sm mb-2 shadow-md border-2 border-white"
+        class="flex rounded-full px-4 sm:px-4 align-items justify-center text-xs sm:text-sm mb-2 shadow-md border-2 border-white dark:border-themeYellow/40"
       >
         <img :src="type_2_icon" alt="Pokemon Type 2" class="-ml-1.5 w-6 h-6" />
         <div class="h-6 flex items-center text-center font-rubik uppercase">

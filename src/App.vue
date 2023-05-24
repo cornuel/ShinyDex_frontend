@@ -74,10 +74,10 @@
         // Peutetre pas utile car isAuthenticated n'est que dans App.vue
         this.user.isAuthenticated = true;
         axios.defaults.headers.common["Authorization"] =
-          "Bearer " + this.user.token;
+        "Bearer " + this.user.token;
       } else {
-        this.$router.push("/log-in");
         axios.defaults.headers.common["Authorization"] = "";
+        this.$router.push("/log-in");
       }
     },
 

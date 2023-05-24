@@ -6,7 +6,7 @@
           class="relative w-full cursor-pointer rounded-lg py-1.5 pl-3 pr-10 text-left shadow-md 
           sm:text-base font-bold border-2 overflow-y-hidden transition duration-200 ease-in-out"
           :class="{
-              'bg-white border-0 text-gray-800 ': selectedType.type === 'Tous les types',
+              'bg-white dark:bg-lightIndigo/70 dark:text-themeYellow border-0 text-gray-800 ': selectedType.type === 'Tous les types',
               'bg-plante border-green-400 text-white': selectedType.type === 'Plante',
               'bg-feu border-red-300 text-white': selectedType.type === 'Feu',
               'bg-eau border-blue-300 text-white': selectedType.type === 'Eau',
@@ -43,7 +43,7 @@
         </ListboxButton>
 
           <ListboxOptions
-            class="max-h-48 md:max-h-fit absolute mt-1 w-full  overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+            class="max-h-48 md:max-h-fit absolute mt-1 w-full  overflow-auto rounded-md bg-white dark:bg-indigo/90 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
             >
             <ListboxOption
               @click="handleClick"
@@ -55,7 +55,7 @@
             >
               <li
                 :class="[
-                  active ? 'bg-amber-100 text-purple-600' : 'text-gray-900',
+                  active ? 'bg-amber-100 text-purple-600' : 'text-gray-900 dark:text-themeYellow',
                   'relative cursor-pointer select-none py-2 pl-10 pr-4',
                 ]"
               >

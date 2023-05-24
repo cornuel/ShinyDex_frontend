@@ -5,16 +5,12 @@ export const useUserStore = defineStore({
   state: () => ({
     token: localStorage.getItem("token") || null,
     user: localStorage.getItem("user") || null,
-    sortFilter: 'ascending',
-    sortOrder: '',
-    typeFilter: ''
+    dark: window.matchMedia('(prefers-color-scheme: dark)').matches ?? false,
   }),
   getters: {
+    getDarkMode: (state) => state.dark,
     getToken: (state) => state.token,
     getUser: (state) => JSON.parse(state.user),
-    getSortFilter: (state) => state.sortFilter,
-    getSortOrder: (state) => state.sortFilter,
-    getTypeFilter: (state) => state.typeFilter
   },
   actions: {
     setToken(token) {
@@ -40,6 +36,9 @@ export const useUserStore = defineStore({
     
       // Delete user from local storage
       localStorage.removeItem("user");
+    },
+    setDarkMode() {
+      this.dark = !true;
     },
 
   },

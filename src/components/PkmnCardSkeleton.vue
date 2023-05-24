@@ -2,7 +2,7 @@
     <div class="p-0.5 h-full
         rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl">
         <div class="relative
-                            bg-gray-50 h-full
+                            bg-gray-50 dark:bg-lightIndigo/70 h-full
                             rounded-tl-md rounded-br-md rounded-tr-3xl rounded-bl-3xl 
                             shadow-md border-1 border-gray-200">
             <div class="post">

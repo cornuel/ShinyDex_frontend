@@ -1,5 +1,5 @@
 <template>
-  <footer ref="footer" class="z-[50] h-full w-full bg-themeYellow rounded-lg shadow dark:bg-gray-900 ease-linear transition-all duration-150">
+  <footer ref="footer" class="z-[50] h-full w-full bg-themeYellow shadow dark:bg-darkPurple ease-linear transition-all duration-150">
     <Transition name="fade" mode="out-in">
     <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8 ">
       <div class="flex items-center justify-center">
@@ -35,7 +35,7 @@
           Made with ♡ by Benjamin Cornuel
         </div>
       <hr
-        class="my-6 border-gray-700 mx-auto dark:border-gray-700 lg:my-8"
+        class="my-6 border-gray-700 mx-auto dark:border-themeYellow/40 lg:my-8"
       />
       <span
         class="block text-sm text-gray-500 text-center dark:text-gray-400"

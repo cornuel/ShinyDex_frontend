@@ -32,9 +32,9 @@ library.add(solidStar, solidChart, regularStar, arrowUp, arrowDown)
 // We'll talk about nested routes later.
 
 const routes = [
-    { path: '/sign-up/', component: SignUp },
-    { path: '/log-in/', component: LogIn },
-    { path: '/dash-board/', component: DashBoard },
+    { path: '/sign-up/', name: 'sign-up', component: SignUp,},
+    { path: '/log-in/', name: 'log-in', component: LogIn },
+    { path: '/dash-board/', name: 'dash-board', component: DashBoard },
 ]
 
 // 2. Create the router instance and pass the `routes` option

@@ -33,14 +33,20 @@ module.exports = {
         spd:'#36a2eb',
         spe:'#9966ff',
         themeYellow: '#fef3c7',
-        themeGray: '#e5e6e9'
+        themeGray: '#e5e6e9',
+        darkPurple2: '#1a1826',
+        darkPurple: '#161320',
+        indigo: '#1e1e2e',
+        lightIndigo: '#4f4f7a',
+        lavender: '#cba6f7',
+        themeYellowDark: '#645f4e'
       }
     },
   },
   variants: {},
   plugins: [],
   safelist: [{
-      pattern: /(bg|text|border)-(themeYellow|themeGray|combat|psy|poison|dragon|spectre|tenebres|sol|feu|fee|eau|vol|normal|roche|electrik|insecte|plante|glace|acier|hp|atq|def|spa|spd|spe)/
+      pattern: /(bg|text|border)-(lavender|lightIndigo|indigo|darkPurple|darkPurple2|themeYellowDark|themeYellow|themeGray|combat|psy|poison|dragon|spectre|tenebres|sol|feu|fee|eau|vol|normal|roche|electrik|insecte|plante|glace|acier|hp|atq|def|spa|spd|spe)/
     },
   ],
 }

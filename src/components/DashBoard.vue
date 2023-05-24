@@ -1,17 +1,15 @@
 <template>
-  <div v-if="this.userStore.user" class="bg-[#f3f4f6] dashboard scroll-smooth overflow-visible">
-    <!-- Leftside navigation bar -->
-    <!-- <NavBar /> -->
-    <!-- Rightside content -->
-    <div>
-      <img src="@/assets/pokeball_bg_2.svg" alt="pokeball" class="-z-0 fixed -ml-96 -mt-[20rem] sm:-mt-96 max-w-[96rem]">
-    </div>
-    <div class="z-40 w-full lg:w-fit h-fit lg:h-20 grid grid-cols-2 lg:flex mx-auto lg:inset-x-0 lg:fixed p-2 lg:p-5 rounded-lg justify-center items-center mt-1 lg:mt-10 gap-2 lg:shadow-md 
-        lg:border-2 lg:border-purple-400 lg:backdrop-blur-lg font-nunito whitespace-nowrap align-middle">
-      <!-- <div class="flex items-center mt-1">
-        <img class="w-32 mb-2" src="@/assets/shinydex.png" alt="" />
-      </div> -->
-      <div class="z-[60] sm:w-auto flex rounded-xl justify-center shadow-md cursor-default bg-black bg-opacity-20 px-4 py-1.5 text-base font-bold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+  <div v-if="this.userStore.user" class="bg-[#f3f4f6] dark:bg-darkPurple dashboard scroll-smooth overflow-visible">
+    <!-- Background Pokeball Image -->
+    <img :src="pokeballBg" alt="pokeball" class="-z-0 fixed -ml-96 -mt-[20rem] sm:-mt-96 max-w-[96rem]">
+    <!-- Menu container--> 
+    <div class="z-40 w-full lg:w-fit h-fit lg:h-20 grid grid-cols-2 lg:flex mx-auto lg:inset-x-0 lg:fixed 
+        p-2 lg:p-5 rounded-lg justify-center items-center mt-1 lg:mt-10 gap-2 lg:shadow-md 
+        lg:border-2 lg:border-lavender lg:backdrop-blur-lg font-nunito whitespace-nowrap align-middle">
+      <div
+        class="z-[60] sm:w-auto flex rounded-xl justify-center shadow-md cursor-default bg-black 
+        bg-opacity-20 px-4 py-1.5 text-base font-bold text-white focus:outline-none focus-visible:ring-2 
+        focus-visible:ring-white focus-visible:ring-opacity-75">
         <img src="@/assets/pokeball.svg" alt="pokeball" class="w-5">
         <div v-if="!isFirstLoading">
           {{ sumOfOwnedPokemon }} / {{ sumOfAllPokemon }}
@@ -28,17 +26,20 @@
     </div>
 
     <div v-if="!isLoading" class="cards-container h-full">
-      <div
-        class="z-0 p-2 lg:p-28 left-44 grid bg-gray-100 grid-cols-2 lg:mt-10
-                                sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-2 sm:gap-5 scrollbar-gutter-stable">
+      <!-- Pokemon cards container --> 
+      <div class="z-0 p-2 lg:p-28 left-44 grid bg-gray-100 dark:bg-darkPurple grid-cols-2 lg:mt-10
+        sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-2 sm:gap-5 
+        scrollbar-gutter-stable">
         <PkmnCard v-for="(pkmn, i) in data" :key="i" :pkmn="pkmn" :backend="backend" :apiUrl="apiUrl"
           :postShinyData_endpoint="postShinyData_endpoint" :userPkmnList="userPkmnList"
           @computeSumOfOwnedPokemon="computeSumOfOwnedPokemon" />
       </div>
     </div>
     <div v-else>
-      <div class="z-0 p-2 lg:p-28 left-44 grid bg-gray-100 grid-cols-2 lg:mt-10
-                              sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-2 sm:gap-5">
+      <!-- Skeleton container --> 
+      <div
+        class="z-0 p-2 lg:p-28 left-44 grid bg-gray-100 dark:bg-darkPurple grid-cols-2 lg:mt-10
+        sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-6 gap-2 sm:gap-5">
         <PkmnCardSkeleton v-for="i in 36" :key="i" />
       </div>
     </div>
@@ -50,7 +51,6 @@
 <script>
 import axios from 'axios'
 import { useUserStore } from "@/store/user";
-// import NavBar from '@/components/NavBar.vue'
 import PkmnCard from './PkmnCard.vue';
 import PkmnCardSkeleton from './PkmnCardSkeleton.vue';
 import OwnFilter from './filters/OwnFilter.vue';
@@ -64,7 +64,6 @@ import FooterDashboard from './FooterDashboard.vue';
 export default {
 
   components: {
-    // NavBar,
     PkmnCard,
     PkmnCardSkeleton,
     OwnFilter,
@@ -79,23 +78,26 @@ export default {
   mounted() {
     this.isLoading = true
     this.fetchMultipleUrls({},
-    this.apiUrl + this.getData,
-    this.apiUrl + this.getUserPkmnList,
-    this.apiUrl + this.getSumOfOwnedPokemon,
-    this.apiUrl + this.getSumOfAllPokemon)
+      this.apiUrl + this.getData,
+      this.apiUrl + this.getUserPkmnList,
+      this.apiUrl + this.getSumOfOwnedPokemon,
+      this.apiUrl + this.getSumOfAllPokemon)
     this.isFirstLoading = false
-    // check if screen is mobile size on mount
-    // this.isMobile = window.innerWidth < 768;
-    // // update isMobile when screen is resized
-    // window.addEventListener('resize', () => {
-    //   this.isMobile = window.innerWidth < 768;
-    // });
   },
 
   setup() {
     const userStore = useUserStore();
     return { userStore };
+  },
 
+  computed: {
+    isDarkMode() {
+      return this.userStore.getDarkMode;
+    },
+
+    pokeballBg() {
+      return this.isDarkMode ? require('@/assets/pokeball_bg_2_dark.svg') : require('@/assets/pokeball_bg_2.svg');
+    },
   },
 
   data: () => ({
